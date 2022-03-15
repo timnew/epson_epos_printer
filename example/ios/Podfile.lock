@@ -1,0 +1,22 @@
+PODS:
+  - epson_epos_printer (0.0.1):
+    - Flutter
+  - Flutter (1.0.0)
+
+DEPENDENCIES:
+  - epson_epos_printer (from `.symlinks/plugins/epson_epos_printer/ios`)
+  - Flutter (from `Flutter`)
+
+EXTERNAL SOURCES:
+  epson_epos_printer:
+    :path: ".symlinks/plugins/epson_epos_printer/ios"
+  Flutter:
+    :path: Flutter
+
+SPEC CHECKSUMS:
+  epson_epos_printer: 545fa7f5277cdbedc940ee98d2bc575733345936
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+
+PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
+
+COCOAPODS: 1.11.2
