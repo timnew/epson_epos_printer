@@ -9,20 +9,20 @@ class Epos2Device with _$Epos2Device {
   const Epos2Device._();
 
   const factory Epos2Device({
-    required String target,
-    required String ipAddress,
-    required String macAddress,
-    required String bdAddress,
+    required String? target,
+    required String? ipAddress,
+    required String? macAddress,
+    required String? bdAddress,
   }) = _Epos2Device;
 
   factory Epos2Device.fromJson(JsonObject json) {
     check(json["deviceType"] == 1, "Only EPOS2_TYPE_PRINTER is supported");
 
     return Epos2Device(
-      target: json['target'] as String,
-      ipAddress: json['ipAddress'] as String,
-      macAddress: json['macAddress'] as String,
-      bdAddress: json['bdAddress'] as String,
+      target: json['target'] as String?,
+      ipAddress: json['ipAddress'] as String?,
+      macAddress: json['macAddress'] as String?,
+      bdAddress: json['bdAddress'] as String?,
     );
   }
 }

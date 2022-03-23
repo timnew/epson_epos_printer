@@ -19,10 +19,10 @@ class _$Epos2DeviceTearOff {
   const _$Epos2DeviceTearOff();
 
   _Epos2Device call(
-      {required String target,
-      required String ipAddress,
-      required String macAddress,
-      required String bdAddress}) {
+      {required String? target,
+      required String? ipAddress,
+      required String? macAddress,
+      required String? bdAddress}) {
     return _Epos2Device(
       target: target,
       ipAddress: ipAddress,
@@ -37,10 +37,10 @@ const $Epos2Device = _$Epos2DeviceTearOff();
 
 /// @nodoc
 mixin _$Epos2Device {
-  String get target => throw _privateConstructorUsedError;
-  String get ipAddress => throw _privateConstructorUsedError;
-  String get macAddress => throw _privateConstructorUsedError;
-  String get bdAddress => throw _privateConstructorUsedError;
+  String? get target => throw _privateConstructorUsedError;
+  String? get ipAddress => throw _privateConstructorUsedError;
+  String? get macAddress => throw _privateConstructorUsedError;
+  String? get bdAddress => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $Epos2DeviceCopyWith<Epos2Device> get copyWith =>
@@ -53,7 +53,10 @@ abstract class $Epos2DeviceCopyWith<$Res> {
           Epos2Device value, $Res Function(Epos2Device) then) =
       _$Epos2DeviceCopyWithImpl<$Res>;
   $Res call(
-      {String target, String ipAddress, String macAddress, String bdAddress});
+      {String? target,
+      String? ipAddress,
+      String? macAddress,
+      String? bdAddress});
 }
 
 /// @nodoc
@@ -75,19 +78,19 @@ class _$Epos2DeviceCopyWithImpl<$Res> implements $Epos2DeviceCopyWith<$Res> {
       target: target == freezed
           ? _value.target
           : target // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       ipAddress: ipAddress == freezed
           ? _value.ipAddress
           : ipAddress // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       macAddress: macAddress == freezed
           ? _value.macAddress
           : macAddress // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       bdAddress: bdAddress == freezed
           ? _value.bdAddress
           : bdAddress // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -100,7 +103,10 @@ abstract class _$Epos2DeviceCopyWith<$Res>
       __$Epos2DeviceCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String target, String ipAddress, String macAddress, String bdAddress});
+      {String? target,
+      String? ipAddress,
+      String? macAddress,
+      String? bdAddress});
 }
 
 /// @nodoc
@@ -124,19 +130,19 @@ class __$Epos2DeviceCopyWithImpl<$Res> extends _$Epos2DeviceCopyWithImpl<$Res>
       target: target == freezed
           ? _value.target
           : target // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       ipAddress: ipAddress == freezed
           ? _value.ipAddress
           : ipAddress // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       macAddress: macAddress == freezed
           ? _value.macAddress
           : macAddress // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
       bdAddress: bdAddress == freezed
           ? _value.bdAddress
           : bdAddress // ignore: cast_nullable_to_non_nullable
-              as String,
+              as String?,
     ));
   }
 }
@@ -152,13 +158,13 @@ class _$_Epos2Device extends _Epos2Device {
       : super._();
 
   @override
-  final String target;
+  final String? target;
   @override
-  final String ipAddress;
+  final String? ipAddress;
   @override
-  final String macAddress;
+  final String? macAddress;
   @override
-  final String bdAddress;
+  final String? bdAddress;
 
   @override
   String toString() {
@@ -193,20 +199,20 @@ class _$_Epos2Device extends _Epos2Device {
 
 abstract class _Epos2Device extends Epos2Device {
   const factory _Epos2Device(
-      {required String target,
-      required String ipAddress,
-      required String macAddress,
-      required String bdAddress}) = _$_Epos2Device;
+      {required String? target,
+      required String? ipAddress,
+      required String? macAddress,
+      required String? bdAddress}) = _$_Epos2Device;
   const _Epos2Device._() : super._();
 
   @override
-  String get target;
+  String? get target;
   @override
-  String get ipAddress;
+  String? get ipAddress;
   @override
-  String get macAddress;
+  String? get macAddress;
   @override
-  String get bdAddress;
+  String? get bdAddress;
   @override
   @JsonKey(ignore: true)
   _$Epos2DeviceCopyWith<_Epos2Device> get copyWith =>
