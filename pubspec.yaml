@@ -10,16 +10,17 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  freezed_annotation: ^1.1.0
+  lint: ^1.8.2
+  logging: ^1.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   flutter_lints: ^1.0.0
+  freezed: ^1.1.1
+  build_runner: ^2.1.8
 
-# For information on the generic Dart part of this file, see the
-# following page: https://dart.dev/tools/pub/pubspec
-
-# The following section is specific to Flutter.
 flutter:
   plugin:
     platforms:
