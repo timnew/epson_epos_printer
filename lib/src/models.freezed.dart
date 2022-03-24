@@ -19,12 +19,14 @@ class _$Epos2DeviceTearOff {
   const _$Epos2DeviceTearOff();
 
   _Epos2Device call(
-      {required String? target,
-      required String? ipAddress,
-      required String? macAddress,
-      required String? bdAddress}) {
+      {required String target,
+      required String deviceName,
+      required String ipAddress,
+      required String macAddress,
+      required String bdAddress}) {
     return _Epos2Device(
       target: target,
+      deviceName: deviceName,
       ipAddress: ipAddress,
       macAddress: macAddress,
       bdAddress: bdAddress,
@@ -37,10 +39,11 @@ const $Epos2Device = _$Epos2DeviceTearOff();
 
 /// @nodoc
 mixin _$Epos2Device {
-  String? get target => throw _privateConstructorUsedError;
-  String? get ipAddress => throw _privateConstructorUsedError;
-  String? get macAddress => throw _privateConstructorUsedError;
-  String? get bdAddress => throw _privateConstructorUsedError;
+  String get target => throw _privateConstructorUsedError;
+  String get deviceName => throw _privateConstructorUsedError;
+  String get ipAddress => throw _privateConstructorUsedError;
+  String get macAddress => throw _privateConstructorUsedError;
+  String get bdAddress => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $Epos2DeviceCopyWith<Epos2Device> get copyWith =>
@@ -53,10 +56,11 @@ abstract class $Epos2DeviceCopyWith<$Res> {
           Epos2Device value, $Res Function(Epos2Device) then) =
       _$Epos2DeviceCopyWithImpl<$Res>;
   $Res call(
-      {String? target,
-      String? ipAddress,
-      String? macAddress,
-      String? bdAddress});
+      {String target,
+      String deviceName,
+      String ipAddress,
+      String macAddress,
+      String bdAddress});
 }
 
 /// @nodoc
@@ -70,6 +74,7 @@ class _$Epos2DeviceCopyWithImpl<$Res> implements $Epos2DeviceCopyWith<$Res> {
   @override
   $Res call({
     Object? target = freezed,
+    Object? deviceName = freezed,
     Object? ipAddress = freezed,
     Object? macAddress = freezed,
     Object? bdAddress = freezed,
@@ -78,19 +83,23 @@ class _$Epos2DeviceCopyWithImpl<$Res> implements $Epos2DeviceCopyWith<$Res> {
       target: target == freezed
           ? _value.target
           : target // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
+      deviceName: deviceName == freezed
+          ? _value.deviceName
+          : deviceName // ignore: cast_nullable_to_non_nullable
+              as String,
       ipAddress: ipAddress == freezed
           ? _value.ipAddress
           : ipAddress // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       macAddress: macAddress == freezed
           ? _value.macAddress
           : macAddress // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       bdAddress: bdAddress == freezed
           ? _value.bdAddress
           : bdAddress // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
@@ -103,10 +112,11 @@ abstract class _$Epos2DeviceCopyWith<$Res>
       __$Epos2DeviceCopyWithImpl<$Res>;
   @override
   $Res call(
-      {String? target,
-      String? ipAddress,
-      String? macAddress,
-      String? bdAddress});
+      {String target,
+      String deviceName,
+      String ipAddress,
+      String macAddress,
+      String bdAddress});
 }
 
 /// @nodoc
@@ -122,6 +132,7 @@ class __$Epos2DeviceCopyWithImpl<$Res> extends _$Epos2DeviceCopyWithImpl<$Res>
   @override
   $Res call({
     Object? target = freezed,
+    Object? deviceName = freezed,
     Object? ipAddress = freezed,
     Object? macAddress = freezed,
     Object? bdAddress = freezed,
@@ -130,19 +141,23 @@ class __$Epos2DeviceCopyWithImpl<$Res> extends _$Epos2DeviceCopyWithImpl<$Res>
       target: target == freezed
           ? _value.target
           : target // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
+      deviceName: deviceName == freezed
+          ? _value.deviceName
+          : deviceName // ignore: cast_nullable_to_non_nullable
+              as String,
       ipAddress: ipAddress == freezed
           ? _value.ipAddress
           : ipAddress // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       macAddress: macAddress == freezed
           ? _value.macAddress
           : macAddress // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
       bdAddress: bdAddress == freezed
           ? _value.bdAddress
           : bdAddress // ignore: cast_nullable_to_non_nullable
-              as String?,
+              as String,
     ));
   }
 }
@@ -152,23 +167,26 @@ class __$Epos2DeviceCopyWithImpl<$Res> extends _$Epos2DeviceCopyWithImpl<$Res>
 class _$_Epos2Device extends _Epos2Device {
   const _$_Epos2Device(
       {required this.target,
+      required this.deviceName,
       required this.ipAddress,
       required this.macAddress,
       required this.bdAddress})
       : super._();
 
   @override
-  final String? target;
+  final String target;
   @override
-  final String? ipAddress;
+  final String deviceName;
   @override
-  final String? macAddress;
+  final String ipAddress;
   @override
-  final String? bdAddress;
+  final String macAddress;
+  @override
+  final String bdAddress;
 
   @override
   String toString() {
-    return 'Epos2Device(target: $target, ipAddress: $ipAddress, macAddress: $macAddress, bdAddress: $bdAddress)';
+    return 'Epos2Device(target: $target, deviceName: $deviceName, ipAddress: $ipAddress, macAddress: $macAddress, bdAddress: $bdAddress)';
   }
 
   @override
@@ -177,6 +195,8 @@ class _$_Epos2Device extends _Epos2Device {
         (other.runtimeType == runtimeType &&
             other is _Epos2Device &&
             const DeepCollectionEquality().equals(other.target, target) &&
+            const DeepCollectionEquality()
+                .equals(other.deviceName, deviceName) &&
             const DeepCollectionEquality().equals(other.ipAddress, ipAddress) &&
             const DeepCollectionEquality()
                 .equals(other.macAddress, macAddress) &&
@@ -187,6 +207,7 @@ class _$_Epos2Device extends _Epos2Device {
   int get hashCode => Object.hash(
       runtimeType,
       const DeepCollectionEquality().hash(target),
+      const DeepCollectionEquality().hash(deviceName),
       const DeepCollectionEquality().hash(ipAddress),
       const DeepCollectionEquality().hash(macAddress),
       const DeepCollectionEquality().hash(bdAddress));
@@ -199,20 +220,23 @@ class _$_Epos2Device extends _Epos2Device {
 
 abstract class _Epos2Device extends Epos2Device {
   const factory _Epos2Device(
-      {required String? target,
-      required String? ipAddress,
-      required String? macAddress,
-      required String? bdAddress}) = _$_Epos2Device;
+      {required String target,
+      required String deviceName,
+      required String ipAddress,
+      required String macAddress,
+      required String bdAddress}) = _$_Epos2Device;
   const _Epos2Device._() : super._();
 
   @override
-  String? get target;
+  String get target;
   @override
-  String? get ipAddress;
+  String get deviceName;
   @override
-  String? get macAddress;
+  String get ipAddress;
   @override
-  String? get bdAddress;
+  String get macAddress;
+  @override
+  String get bdAddress;
   @override
   @JsonKey(ignore: true)
   _$Epos2DeviceCopyWith<_Epos2Device> get copyWith =>

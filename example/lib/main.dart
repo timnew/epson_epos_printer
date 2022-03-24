@@ -1,7 +1,7 @@
-import 'package:flutter/material.dart';
 import 'dart:async';
 
-import 'package:flutter/services.dart';
+import 'package:flutter/material.dart';
+
 import 'package:epson_epos_printer/epson_epos_printer.dart';
 
 void main() {
@@ -16,47 +16,62 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  String _platformVersion = 'Unknown';
+  List<Epos2Device> _printers = [];
+  String? _error;
+  StreamSubscription<Epos2Device>? _subscription;
 
   @override
-  void initState() {
-    super.initState();
-    initPlatformState();
-  }
+  Widget build(BuildContext context) => MaterialApp(
+        home: Scaffold(
+          appBar: AppBar(
+            title: const Text('Plugin example app'),
+          ),
+          body: Column(
+            children: [
+              if (_subscription == null)
+                ElevatedButton(
+                  onPressed: startQuery,
+                  child: const Text("Start Search"),
+                )
+              else
+                ElevatedButton(
+                  onPressed: stopQuery,
+                  child: const Text("Stop Searching"),
+                ),
+              ListView.builder(
+                itemCount: _printers.length,
+                itemBuilder: (c, i) => _buildItem(c, _printers[i]),
+              ),
+            ],
+          ),
+        ),
+      );
 
-  // Platform messages are asynchronous, so we initialize in an async method.
-  Future<void> initPlatformState() async {
-    String platformVersion;
-    // Platform messages may fail, so we use a try/catch PlatformException.
-    // We also handle the message potentially returning null.
-    try {
-      platformVersion =
-          await EpsonEposPrinter.platformVersion ?? 'Unknown platform version';
-    } on PlatformException {
-      platformVersion = 'Failed to get platform version.';
-    }
+  Widget _buildItem(BuildContext context, Epos2Device printer) => ListTile(
+        title: Text(printer.target),
+        subtitle: Text(printer.deviceName),
+      );
 
-    // If the widget was removed from the tree while the asynchronous platform
-    // message was in flight, we want to discard the reply rather than calling
-    // setState to update our non-existent appearance.
-    if (!mounted) return;
+  void startQuery() => setState(() {
+        _printers.clear();
+        _error = null;
+        _subscription = discoverEpos2Devices(const Epos2FilterOption())
+            .listen(_onDeviceDiscovered, onError: _onError);
+      });
 
+  void stopQuery() => setState(() {
+        _subscription?.cancel().onError(_onError);
+        _subscription = null;
+      });
+
+  void _onDeviceDiscovered(Epos2Device event) => setState(() {
+        print(event);
+        _printers.add(event);
+      });
+
+  void _onError(Object error, StackTrace stackTrace) {
     setState(() {
-      _platformVersion = platformVersion;
+      _error = '$error\n$stackTrace';
     });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: Text('Running on: $_platformVersion\n'),
-        ),
-      ),
-    );
   }
 }
