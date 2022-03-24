@@ -9,7 +9,8 @@ import 'models.dart';
 /// * Channel Type: EventChannel
 /// * Codec: StandardCodec
 ///
-/// * Method: Stream create(Epos2FilterOption)
+/// * Method: Stream onListen(Epos2FilterOption)
+/// * Method: void onCancel()
 ///
 /// * Type Epos2FilterOption
 /// ```
