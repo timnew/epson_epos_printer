@@ -11,5 +11,6 @@
 @implementation EpsonEposPrinterPlugin
 + (void)registerWithRegistrar:(NSObject<FlutterPluginRegistrar>*)registrar {
     [EposDiscoveryPlugin registerWith: registrar];
+    [EposPrinterPlugin registerWithRegistrar: registrar];
 }
 @end

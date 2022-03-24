@@ -1,5 +1,5 @@
+import Foundation
 import Flutter
-import UIKit
 
 /// Contract
 /// * Channel Name: epson_epos_printer/discovery
