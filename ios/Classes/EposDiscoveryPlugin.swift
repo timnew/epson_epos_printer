@@ -31,8 +31,7 @@ import UIKit
 /// }
 /// ```
 public class EposDiscoveryPlugin: NSObject, FlutterStreamHandler {
-
-
+    @objc
     public static func register(with registrar: FlutterPluginRegistrar) {
         let streamChannel = FlutterEventChannel(name: "epson_epos_printer/discovery",                                                     binaryMessenger: registrar.messenger())
 
@@ -68,7 +67,8 @@ public class EposDiscoveryPlugin: NSObject, FlutterStreamHandler {
         filterOption.deviceModel = deviceModel
         filterOption.deviceType = deviceType
 
-        let resultCode = Epos2Discovery.start(filterOption, delegate: DiscoveryDelegate(events))
+        let delegate = DiscoveryDelegate(eventSink: events)
+        let resultCode = Epos2Discovery.start(filterOption, delegate: delegate)
         return checkResultCode(resultCode)
     }
 

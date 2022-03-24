@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   s.description      = <<~DESC
     A new flutter plugin project.
   DESC
-  s.homepage         = 'http://example.com'
+  s.homepage         = 'http://github.com/timnew/epson_epos_printer'
   s.license          = { file: '../LICENSE' }
   s.author           = { 'Your Company' => 'email@example.com' }
   s.source           = { path: '.' }
@@ -21,7 +21,9 @@ Pod::Spec.new do |s|
   s.pod_target_xcconfig = { 'DEFINES_MODULE' => 'YES', 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'i386' }
   s.swift_version = '5.0'
 
+  # External Accessory is required by libepos2.a for USB and so
+  s.framework = 'ExternalAccessory'
   s.library = 'xml2'
+  # libepos2.h will be included autommatically as public header
   s.vendored_libraries = 'Libraries/libepos2.a'
-  s.project_header_files = 'Classes/ePOS2.h'
 end

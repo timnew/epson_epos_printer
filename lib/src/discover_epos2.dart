@@ -37,4 +37,4 @@ const EventChannel _channel = EventChannel("epson_epos_printer/discovery");
 
 Stream<Epos2Device> discoverEpos2Devices(Epos2FilterOption options) => _channel
     .receiveBroadcastStream(options.toJson())
-    .map((json) => Epos2Device.fromJson(json as Map<String, dynamic>));
+    .map((json) => Epos2Device.fromJson(json as Map<dynamic, dynamic>));

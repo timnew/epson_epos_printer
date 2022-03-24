@@ -1,4 +1,5 @@
 import Foundation
+import Flutter
 
 func checkResultCode(_ resultCode: Int32) -> FlutterError? {
     guard resultCode != EPOS2_SUCCESS.rawValue else { return nil }
@@ -8,7 +9,7 @@ func checkResultCode(_ resultCode: Int32) -> FlutterError? {
                         details: nil)
 }
 
-fileprivate func resultCode2Name(resultCode: Int32) -> String {
+fileprivate func resultCode2Name(_ resultCode: Int32) -> String {
     switch resultCode {
     case EPOS2_SUCCESS.rawValue:
         return "EPOS2_SUCCESS"

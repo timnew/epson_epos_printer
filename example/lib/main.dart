@@ -27,6 +27,7 @@ class _MyAppState extends State<MyApp> {
             title: const Text('Plugin example app'),
           ),
           body: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               if (_subscription == null)
                 ElevatedButton(
@@ -38,9 +39,12 @@ class _MyAppState extends State<MyApp> {
                   onPressed: stopQuery,
                   child: const Text("Stop Searching"),
                 ),
-              ListView.builder(
-                itemCount: _printers.length,
-                itemBuilder: (c, i) => _buildItem(c, _printers[i]),
+              if (_error != null) Text(_error!),
+              Expanded(
+                child: ListView.builder(
+                  itemCount: _printers.length,
+                  itemBuilder: (c, i) => _buildItem(c, _printers[i]),
+                ),
               ),
             ],
           ),

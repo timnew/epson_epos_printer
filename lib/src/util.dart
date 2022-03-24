@@ -1,6 +1,6 @@
 import 'exceptions.dart';
 
-typedef JsonObject = Map<String, dynamic>;
+typedef JsonObject = Map<dynamic, dynamic>;
 
 void check(bool condition, String message) {
   if (!condition) {
