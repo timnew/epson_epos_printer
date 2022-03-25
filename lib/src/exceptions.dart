@@ -1,18 +1,14 @@
-class EposError extends Error {
+class Epos2Exception implements Exception {
   final String code;
-  final String message;
   final String? details;
+  final String? nativeStackTrace;
 
-  EposError(this.code, this.message, [this.details]);
-
-  factory EposError.unexpected(String message) =>
-      EposError('unexpected', message);
+  Epos2Exception(this.code, {this.details, this.nativeStackTrace});
 
   @override
-  String toString() {
-    final basic = "EposError[$code]: $message";
-    if (details == null) return basic;
-
-    return "$basic\n  Details: $details";
-  }
+  String toString() => [
+        "Epos2Exception: $code",
+        if (details != null) "  Details: $details",
+        if (nativeStackTrace != null) "\n$nativeStackTrace",
+      ].join("\n");
 }

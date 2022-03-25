@@ -11,8 +11,18 @@ import 'enums.dart';
 /// * Method: int createPrinter({String series, String model})
 /// * Method: void destroyPrinter(int id)
 ///
-/// * Method: void connect({id: String, args: {String target, Long timeout}})
+/// * Method: void connect({id: String, args: {String target, Long timeout=15000}})
 /// * Method: void disconnect({id: String})
+///
+/// * Method: void sendData({id: String, args: {Long timeout=10000}})
+/// * Method: void clearCommandBuffer({id: String})
+///
+/// * Method: void addText({id: String, args: {String data}})
+/// * Method: void addTextAlign({id: String, args: {String align}})
+/// * Method: void addTextSize({id: String, args: {width: Long, height: Long}})
+/// * Method: void addLineSpace({id: String, args: {Long space}})
+/// * Method: void addCut({id: String, args: {String cutType}})
+
 const printerChannel = MethodChannel("epson_epos_printer/printer");
 
 Future<int> createNativePrinter(Epos2Series series, Epos2Model model) async {

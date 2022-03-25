@@ -16,17 +16,28 @@ func wrap(handler: (_ arguments: Any?) throws -> Any, with arguments: Any?, to c
         callback(flutterError(fromError: error))
     }
 }
- 
+
+func instIdOnly(from arguments: Any?) throws -> Epos2Printer {
+    guard let marshalMap = arguments as? Dictionary<String, Any>,
+          let id = marshalMap["id"] as? Int32 else {
+        throw LibraryError.badMarshal
+    }
+
+    let printer = try InstanceManager.printer(byId: id)
+
+    return printer;
+}
+
 func instArgsDict(from arguments: Any?) throws -> (Epos2Printer, Dictionary<String, Any?>) {
     guard let marshalMap = arguments as? Dictionary<String, Any>,
           let id = marshalMap["id"] as? Int32,
-          let argsMap = marshalMap["args"] as? Dictionary<String, Any> else {
+          let args = marshalMap["args"] as? Dictionary<String, Any> else {
         throw LibraryError.badMarshal
     }
-    
+
     let printer = try InstanceManager.printer(byId: id)
- 
-    return (printer, argsMap)
+
+    return (printer, args)
 }
 
 
@@ -43,15 +54,15 @@ func flutterError(fromError error: Error) -> FlutterError {
             return FlutterError(code: "library", message: "Invalid instance id \(id)", details: nil)
         }
     }
-    
+
     return FlutterError(code: "library", message: "Unexpected error", details: "\(error)")
-    
+
 }
 
 func flutterError(fromCode resultCode: Int32) -> FlutterError? {
     guard resultCode != EPOS2_SUCCESS.rawValue else { return nil }
 
     return FlutterError(code: errorCodeName(from: resultCode),
-                        message: errorCodeName(from: resultCode),
+                        message: nil,
                         details: nil)
 }

@@ -34,5 +34,19 @@ enum Epos2Model {
   TAIWAN,
   KOREAN,
   THAI,
-  SOUTHASIA,
+  SOUTH_ASIA,
+}
+
+enum Epos2Align {
+  DEFAULT,
+  LEFT,
+  CENTER,
+  RIGHT,
+}
+
+enum Epos2Cut {
+  DEFAULT,
+  CUT_FEED,
+  CUT_NO_FEED,
+  CUT_RESERVE,
 }

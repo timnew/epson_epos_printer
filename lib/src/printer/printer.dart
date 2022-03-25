@@ -37,4 +37,55 @@ class Epos2Printer {
         id: id,
         method: "disconnect",
       );
+
+  /// * Method: void sendData({id: String, args: {Long timeout=10000}})
+  Future<void> sendData({
+    Duration timeout = const Duration(milliseconds: 10000),
+  }) async =>
+      invokeChannel(
+        id: id,
+        method: "sendData",
+        arguments: {"timeout": timeout.inMilliseconds},
+      );
+
+  /// * Method: void clearCommandBuffer({id: String})
+  Future<void> clearCommandBuffer() async => invokeChannel(
+        id: id,
+        method: "clearCommandBuffer",
+      );
+
+  /// * Method: void addText({id: String, args: {String data}})
+  Future<void> addText(String data) async => invokeChannel(
+        id: id,
+        method: "addText",
+        arguments: {"data": data},
+      );
+
+  /// * Method: void addTextAlign({id: String, args: {String align}})
+  Future<void> addTextAlign(Epos2Align align) async => invokeChannel(
+        id: id,
+        method: "addTextAlign",
+        arguments: {"align": align.name},
+      );
+
+  /// * Method: void addTextSize({id: String, args: {width: Long, height: Long}})
+  Future<void> addTextSize(int width, int height) async => invokeChannel(
+        id: id,
+        method: "addTextSize",
+        arguments: {"width": width, "height": height},
+      );
+
+  /// * Method: void addLineSpace({id: String, args: {Long space}})
+  Future<void> addLineSpace(int space) async => invokeChannel(
+        id: id,
+        method: "addLineSpace",
+        arguments: {"space": space},
+      );
+
+  /// * Method: void addCut({id: String, args: {String cutType}})
+  Future<void> addCut(Epos2Cut cut) async => invokeChannel(
+        id: id,
+        method: "addCut",
+        arguments: {"cutType": cut.name},
+      );
 }

@@ -104,7 +104,7 @@ func epos2Series(byName name: String) throws -> Int32 {
     case "TM_H6000":
         return EPOS2_TM_H6000.rawValue;
     default:
-        throw LibraryError.badEnum(name: "epos2Series", value: name)
+        throw LibraryError.badEnum(name: "Epos2Series", value: name)
     }
 }
 
@@ -120,9 +120,39 @@ func epos2Model(byName name: String) throws -> Int32 {
       return EPOS2_MODEL_KOREAN.rawValue;
     case "THAI":
       return EPOS2_MODEL_THAI.rawValue;
-    case "SOUTHASIA":
+    case "SOUTH_ASIA":
       return EPOS2_MODEL_SOUTHASIA.rawValue;
     default:
-        throw LibraryError.badEnum(name: "epos2Model", value: name)
+        throw LibraryError.badEnum(name: "Epos2Model", value: name)
+    }
+}
+
+func epos2Align(byName name: String) throws -> Int32 {
+    switch name {
+    case "DEFAULT":
+      return EPOS2_PARAM_DEFAULT
+    case "LEFT":
+      return EPOS2_ALIGN_LEFT.rawValue
+    case "CENTER":
+      return EPOS2_ALIGN_CENTER.rawValue
+    case "RIGHT":
+      return EPOS2_ALIGN_RIGHT.rawValue
+    default:
+        throw LibraryError.badEnum(name: "Epos2Align", value: name)
+    }
+}
+
+func epos2Cut(byName name: String) throws -> Int32 {
+    switch name {
+    case "DEFAULT":
+      return EPOS2_PARAM_DEFAULT
+    case "CUT_FEED":
+      return EPOS2_CUT_FEED.rawValue
+    case "CUT_NO_FEED":
+      return EPOS2_CUT_NO_FEED.rawValue
+    case "CUT_RESERVE":
+      return EPOS2_CUT_RESERVE.rawValue
+    default:
+        throw LibraryError.badEnum(name: "Epos2Cut", value: name)
     }
 }
