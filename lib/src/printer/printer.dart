@@ -20,4 +20,21 @@ class Epos2Printer {
       );
 
   Future<void> dispose() async => destroyNativePrinter(id);
+
+  /// * Method: void connect({id: String, args: {String target, Long timeout}})
+  Future<void> connect(
+    String target, {
+    Duration timeout = const Duration(milliseconds: 15000),
+  }) async =>
+      invokeChannel(
+        id: id,
+        method: "connect",
+        arguments: {"target": target, "timeout": timeout.inMilliseconds},
+      );
+
+  /// * Method: void disconnect({id: String})
+  Future<void> disconnect() async => invokeChannel(
+        id: id,
+        method: "disconnect",
+      );
 }

@@ -1,6 +1,12 @@
 import Foundation
 import Flutter
 
+func check(resultCode: Int32) throws {
+    guard resultCode == EPOS2_SUCCESS.rawValue else {
+        throw LibraryError.epos2Error(code: resultCode)
+    }
+}
+
 func errorCodeName(from resultCode: Int32) -> String {
     switch resultCode {
     case EPOS2_SUCCESS.rawValue:

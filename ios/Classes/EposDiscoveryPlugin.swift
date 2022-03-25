@@ -51,11 +51,11 @@ public class EposDiscoveryPlugin: NSObject, FlutterStreamHandler {
     /// }
     /// ```
     public func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
-        guard let argMap = arguments as? Dictionary<String, Any>,
-              let portType = argMap["portType"] as? Int32,
-              let broadcast = argMap["broadcast"] as? String,
-              let deviceModel = argMap["deviceModel"] as? Int32,
-              let deviceType = argMap["deviceType"] as? Int32 else {
+        guard let args = arguments as? Dictionary<String, Any>,
+              let portType = args["portType"] as? Int32,
+              let broadcast = args["broadcast"] as? String,
+              let deviceModel = args["deviceModel"] as? Int32,
+              let deviceType = args["deviceType"] as? Int32 else {
             return flutterError(fromError: LibraryError.badMarshal)
         }
 

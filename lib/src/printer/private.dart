@@ -10,6 +10,9 @@ import 'enums.dart';
 ///
 /// * Method: int createPrinter({String series, String model})
 /// * Method: void destroyPrinter(int id)
+///
+/// * Method: void connect({id: String, args: {String target, Long timeout}})
+/// * Method: void disconnect({id: String})
 const printerChannel = MethodChannel("epson_epos_printer/printer");
 
 Future<int> createNativePrinter(Epos2Series series, Epos2Model model) async {
@@ -27,8 +30,12 @@ Future<void> destroyNativePrinter(int id) async {
       .translatePlatformException();
 }
 
-Future<T?> invokeChannel<T>(int id, String method, Map? args) async =>
+Future<T?> invokeChannel<T>({
+  required int id,
+  required String method,
+  Map? arguments,
+}) async =>
     printerChannel.invokeMethod<T>(method, {
       "id": id,
-      "args": args,
+      "args": arguments,
     }).translatePlatformException();

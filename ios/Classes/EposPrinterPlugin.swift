@@ -8,6 +8,9 @@ import Flutter
 ///
 /// * Method: int createPrinter({String series, String model})
 /// * Method: void destroyPrinter(int id)
+///
+/// * Method: void connect({String target, Long timeout})
+/// * Method: void disconnect()
 
 public class EposPrinterPlugin : NSObject, FlutterPlugin {
     public static func register(with registrar: FlutterPluginRegistrar) {
@@ -16,24 +19,16 @@ public class EposPrinterPlugin : NSObject, FlutterPlugin {
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
     
-    private static var printers: Dictionary<Int32, Epos2Printer> = [:];
-    private static var nextId: Int32 = 0;
-    private static func register(printer: Epos2Printer) -> Int32 {
-        let id = nextId
-        nextId += 1
-        printers[id] = printer
-        return id
-    }
-    private static func unregister(id: Int32) {
-        printers.removeValue(forKey: id)
-    }
-    
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch(call.method){
         case "createPrinter":
             wrap(handler: createPrinter, with: call.arguments, to: result)
         case "destroyPrinter":
             wrap(handler: destroyPrinter, with: call.arguments, to: result)
+        case "connect":
+            wrap(handler: connect, with: call.arguments, to: result)
+        case "disconnect":
+            wrap(handler: disconnect, with: call.arguments, to: result)
         default:            
             result(FlutterMethodNotImplemented)
         }
@@ -51,7 +46,7 @@ public class EposPrinterPlugin : NSObject, FlutterPlugin {
         let model = try epos2Model(byName: modelName)
         let printer = Epos2Printer.init(printerSeries: series, lang: model)!
         
-        return EposPrinterPlugin.register(printer: printer)
+        return InstanceManager.register(printer: printer)
     }
     
    
@@ -61,6 +56,29 @@ public class EposPrinterPlugin : NSObject, FlutterPlugin {
             throw LibraryError.badMarshal
         }
         
-        EposPrinterPlugin.unregister(id: printerId)
+        InstanceManager.release(id: printerId)
+    }
+    
+    /// * Method: void connect({id: String, args: {String target, Long timeout}})
+    func connect(_ arguments: Any?) throws {
+        let (printer, args) = try instArgsDict(from: arguments)
+        
+        guard let target = args["target"] as? String,
+              let timeout = args["timeout"] as? Int64 else {
+            throw LibraryError.badMarshal
+        }
+        
+        let code = printer.connect(target, timeout: Int(timeout))
+        
+        try check(resultCode: code)
+    }
+
+    /// * Method: void disconnect({id: String})
+    func disconnect(_ arguments: Any?) throws {
+        let (printer, _) = try instArgsDict(from: arguments)
+        
+        let code = printer.disconnect()
+        
+        try check(resultCode: code)
     }
 }
