@@ -16,15 +16,15 @@ class Epos2Device with _$Epos2Device {
     required String bdAddress,
   }) = _Epos2Device;
 
-  factory Epos2Device.fromJson(JsonObject json) {
-    check(json["deviceType"] == 1, "Only EPOS2_TYPE_PRINTER is supported");
+  factory Epos2Device.fromMarshal(Map data) {
+    check(data["deviceType"] == 1, "Only EPOS2_TYPE_PRINTER is supported");
 
     return Epos2Device(
-      target: json['target'] as String,
-      deviceName: json['deviceName'] as String,
-      ipAddress: json['ipAddress'] as String,
-      macAddress: json['macAddress'] as String,
-      bdAddress: json['bdAddress'] as String,
+      target: data['target'] as String,
+      deviceName: data['deviceName'] as String,
+      ipAddress: data['ipAddress'] as String,
+      macAddress: data['macAddress'] as String,
+      bdAddress: data['bdAddress'] as String,
     );
   }
 }
@@ -32,7 +32,7 @@ class Epos2Device with _$Epos2Device {
 class Epos2FilterOption {
   const Epos2FilterOption();
 
-  JsonObject toJson() => {
+  Map toMarshal() => {
         // Hard coded to EPOS2_PORTTYPE_TCP
         "portType": 1,
         // Hard coded to Broadcast to everyone in local network

@@ -36,5 +36,5 @@ import 'models.dart';
 const EventChannel _channel = EventChannel("epson_epos_printer/discovery");
 
 Stream<Epos2Device> discoverEpos2Devices(Epos2FilterOption options) => _channel
-    .receiveBroadcastStream(options.toJson())
-    .map((json) => Epos2Device.fromJson(json as Map<dynamic, dynamic>));
+    .receiveBroadcastStream(options.toMarshal())
+    .map((json) => Epos2Device.fromMarshal(json as Map));

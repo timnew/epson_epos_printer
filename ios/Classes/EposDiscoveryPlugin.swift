@@ -33,7 +33,8 @@ import Flutter
 public class EposDiscoveryPlugin: NSObject, FlutterStreamHandler {
     @objc
     public static func register(with registrar: FlutterPluginRegistrar) {
-        let streamChannel = FlutterEventChannel(name: "epson_epos_printer/discovery",                                                     binaryMessenger: registrar.messenger())
+        let streamChannel = FlutterEventChannel(name: "epson_epos_printer/discovery",
+                                                binaryMessenger: registrar.messenger())
 
         let instance = EposDiscoveryPlugin()
 
@@ -55,9 +56,7 @@ public class EposDiscoveryPlugin: NSObject, FlutterStreamHandler {
               let broadcast = argMap["broadcast"] as? String,
               let deviceModel = argMap["deviceModel"] as? Int32,
               let deviceType = argMap["deviceType"] as? Int32 else {
-                return FlutterError(code: "invalid-argument",
-                                    message: "arguments type is wrong",
-                                    details: nil)
+            return flutterError(fromError: LibraryError.badMarshal)
         }
 
         let filterOption = Epos2FilterOption()
@@ -69,13 +68,13 @@ public class EposDiscoveryPlugin: NSObject, FlutterStreamHandler {
 
         let delegate = DiscoveryDelegate(eventSink: events)
         let resultCode = Epos2Discovery.start(filterOption, delegate: delegate)
-        return checkResultCode(resultCode)
+        return flutterError(fromCode: resultCode)
     }
 
     public func onCancel(withArguments arguments: Any?) -> FlutterError? {
         let resultCode = Epos2Discovery.stop()
 
-        return checkResultCode(resultCode)
+        return flutterError(fromCode: resultCode)
     }
 }
 
