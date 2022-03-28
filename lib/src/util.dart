@@ -16,6 +16,15 @@ T checkNotNull<T>(T? value, [String? message]) {
   return value;
 }
 
+int checkInRange(int value, String name, int min, int max) {
+  if (value < min || value > max) {
+    throw RangeError.range(value, min, max, name,
+        "Given $name $value is out of valid range $min to $max");
+  }
+
+  return value;
+}
+
 extension PlatformExceptionExtension<T> on Future<T> {
   Future<T> translatePlatformException() async {
     try {

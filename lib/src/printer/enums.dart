@@ -37,7 +37,7 @@ enum Epos2Model {
   SOUTH_ASIA,
 }
 
-enum Epos2Align {
+enum Epos2Alignment {
   DEFAULT,
   LEFT,
   CENTER,
@@ -49,4 +49,34 @@ enum Epos2Cut {
   CUT_FEED,
   CUT_NO_FEED,
   CUT_RESERVE,
+}
+
+enum Epos2Language {
+  DEFAULT,
+  EN,
+  JA,
+  ZH_CN,
+  ZH_TW,
+  KO,
+  TH,
+  VI,
+  MULTI,
+}
+
+enum Epos2Font {
+  DEFAULT,
+  A,
+  B,
+  C,
+  D,
+  E,
+}
+
+enum Epos2Color {
+  DEFAULT,
+  TRANSPARENT,
+  COLOR_1,
+  COLOR_2,
+  COLOR_3,
+  COLOR_4,
 }

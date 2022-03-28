@@ -156,3 +156,70 @@ func epos2Cut(byName name: String) throws -> Int32 {
         throw LibraryError.badEnum(name: "Epos2Cut", value: name)
     }
 }
+
+func epos2Lang(byName name: String) throws  -> Int32 {
+    switch name {
+    case "DEFAULT":
+      return EPOS2_PARAM_DEFAULT
+    case "EN":
+        return EPOS2_LANG_EN.rawValue
+    case "JA":
+        return EPOS2_LANG_JA.rawValue
+    case "ZH_CN":
+        return EPOS2_LANG_ZH_CN.rawValue
+    case "ZH_TW":
+        return EPOS2_LANG_ZH_TW.rawValue
+    case "KO":
+        return EPOS2_LANG_KO.rawValue
+    case "TH":
+        return EPOS2_LANG_TH.rawValue
+    case "VI":
+        return EPOS2_LANG_VI.rawValue
+    case "MULTI":
+        return EPOS2_LANG_MULTI.rawValue
+    default:
+        throw LibraryError.badEnum(name: "Epos2Lang", value: name)
+    }
+}
+
+func epos2Font(byName name: String) throws  -> Int32 {
+    switch name {
+    case "DEFAULT":
+      return EPOS2_PARAM_DEFAULT
+    case "A":
+        return EPOS2_FONT_A.rawValue
+    case "B":
+        return EPOS2_FONT_B.rawValue
+    case "C":
+        return EPOS2_FONT_C.rawValue
+    case "D":
+        return EPOS2_FONT_D.rawValue
+    case "E":
+        return EPOS2_FONT_E.rawValue
+    default:
+        throw LibraryError.badEnum(name: "Epos2Font", value: name)
+    }
+}
+
+func epos2Color(byName name: String) throws  -> Int32 {
+    switch name {
+    case "DEFAULT":
+      return EPOS2_PARAM_DEFAULT
+    case "TRANSPARENT":
+        return EPOS2_COLOR_NONE.rawValue
+    case "COLOR_1":
+        return EPOS2_COLOR_1.rawValue
+    case "COLOR_2":
+        return EPOS2_COLOR_2.rawValue
+    case "COLOR_3":
+        return EPOS2_COLOR_3.rawValue
+    case "COLOR_4":
+        return EPOS2_COLOR_4.rawValue
+    default:
+        throw LibraryError.badEnum(name: "Epos2Font", value: name)
+    }
+}
+
+func epos2Bool(from value: Bool) -> Int32 {
+    return value ? EPOS2_TRUE : EPOS2_FALSE
+}
