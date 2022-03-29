@@ -145,7 +145,7 @@ public class EposPrinterPlugin : NSObject, FlutterPlugin {
     func sendData(_ arguments: Any?) throws {
         let (printer, args) = try instArgsDict(from: arguments)
 
-        guard let timeout = args["data"] as? Int else {
+        guard let timeout = args["timeout"] as? Int else {
             throw LibraryError.badMarshal
         }
 
