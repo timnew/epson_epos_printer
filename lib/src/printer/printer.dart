@@ -10,7 +10,7 @@ class Epos2Printer {
 
   Epos2Printer._(this.id, this.series, this.model);
 
-  Future<Epos2Printer> create({
+  static Future<Epos2Printer> create({
     required Epos2Series series,
     required Epos2Model model,
   }) async =>
@@ -90,6 +90,10 @@ class Epos2Printer {
         method: "addText",
         arguments: {"data": data},
       );
+
+  Future<void> addTextLn(String text) async => addText("$text\n");
+  Future<void> addTextLines(Iterable<String> lines) async =>
+      addText("${lines.join("\n")}\n");
 
   /// * Method: void addTextLang({id: String, args: {String lang = "Default"}})
   Future<void> addTextLanguage(Epos2Language language) async => invokeChannel(
