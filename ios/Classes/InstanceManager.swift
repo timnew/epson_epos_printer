@@ -8,20 +8,28 @@ class InstanceManager {
         nextId += 1
         return id;
     }
-    
+
     static public func register(printer: Epos2Printer) -> Int32 {
         let id = reserveId()
         printers[id] = printer
         return id
     }
-    
+
     static public func release(id: Int32) {
         printers.removeValue(forKey: id)
     }
-    
+
     static public func printer(byId id: Int32) throws -> Epos2Printer {
         guard let printer = printers[id] else { throw LibraryError.invalidId(id: id) }
-        
+
         return printer
+    }
+
+    static public func reset() {
+        for printer in printers.values {
+            printer.disconnect()
+        }
+        printers.removeAll()
+        nextId = 0
     }
 }

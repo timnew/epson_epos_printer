@@ -16,7 +16,7 @@ func handle(_ call: FlutterMethodCall, with handler: (_ arguments: Any?) throws 
             callback(nil)
         } else {
             print("Result of method \(call.method): \(result)")
-        callback(result)
+            callback(result)
         }
     } catch {
         print("Error in method \(call.method): \(error)")
@@ -63,7 +63,6 @@ func flutterError(fromError error: Error, method: String? = nil) -> FlutterError
     }
 
     return FlutterError(code: "library", message: "Unexpected error: \(error)", details: method)
-
 }
 
 func flutterError(fromCode resultCode: Int32, method: String? = nil) -> FlutterError? {

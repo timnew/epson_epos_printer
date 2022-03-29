@@ -40,6 +40,10 @@ public class EposPrinterPlugin : NSObject, FlutterPlugin {
 
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch(call.method){
+        case "init":
+            InstanceManager.reset()
+            result(nil)
+
         case "createPrinter":
             handle(call, with: createPrinter, to: result)
         case "destroyPrinter":

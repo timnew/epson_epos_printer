@@ -32,7 +32,9 @@ import 'enums.dart';
 /// * Method: void addFeedLine({id: String, args: {Long line}})
 ///
 /// * Method: void addCut({id: String, args: {String cutType}})
-const printerChannel = MethodChannel("epson_epos_printer/printer");
+final printerChannel = const MethodChannel("epson_epos_printer/printer")
+  // * Workaround for issue https://github.com/flutter/flutter/issues/10437
+  ..invokeMethod("init");
 
 Future<int> createNativePrinter(Epos2Series series, Epos2Model model) async {
   final id = await printerChannel.invokeMethod<int>("createPrinter", {
