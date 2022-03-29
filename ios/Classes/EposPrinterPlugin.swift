@@ -41,48 +41,48 @@ public class EposPrinterPlugin : NSObject, FlutterPlugin {
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch(call.method){
         case "createPrinter":
-            wrap(handler: createPrinter, with: call.arguments, to: result)
+            handle(call, with: createPrinter, to: result)
         case "destroyPrinter":
-            wrap(handler: destroyPrinter, with: call.arguments, to: result)
+            handle(call, with: destroyPrinter, to: result)
 
         case "sendData":
-            wrap(handler: sendData, with: call.arguments, to: result)
+            handle(call, with: sendData, to: result)
         case "clearCommandBuffer":
-            wrap(handler: clearCommandBuffer, with: call.arguments, to: result)
+            handle(call, with: clearCommandBuffer, to: result)
 
         case "connect":
-            wrap(handler: connect, with: call.arguments, to: result)
+            handle(call, with: connect, to: result)
         case "disconnect":
-            wrap(handler: disconnect, with: call.arguments, to: result)
+            handle(call, with: disconnect, to: result)
 
         case "addTextAlign":
-            wrap(handler: addTextAlign, with: call.arguments, to: result)
+            handle(call, with: addTextAlign, to: result)
         case "addLineSpace":
-            wrap(handler: addLineSpace, with: call.arguments, to: result)
+            handle(call, with: addLineSpace, to: result)
         case "addTextRotate":
-            wrap(handler: addTextRotate, with: call.arguments, to: result)
+            handle(call, with: addTextRotate, to: result)
         case "addText":
-            wrap(handler: addText, with: call.arguments, to: result)
+            handle(call, with: addText, to: result)
         case "addTextLang":
-            wrap(handler: addTextLang, with: call.arguments, to: result)
+            handle(call, with: addTextLang, to: result)
         case "addTextFont":
-            wrap(handler: addTextFont, with: call.arguments, to: result)
+            handle(call, with: addTextFont, to: result)
         case "addTextSmooth":
-            wrap(handler: addTextSmooth, with: call.arguments, to: result)
+            handle(call, with: addTextSmooth, to: result)
         case "addTextSize":
-            wrap(handler: addTextSize, with: call.arguments, to: result)
+            handle(call, with: addTextSize, to: result)
         case "addTextStyle":
-            wrap(handler: addTextStyle, with: call.arguments, to: result)
+            handle(call, with: addTextStyle, to: result)
         case "addHPosition":
-            wrap(handler: addHPosition, with: call.arguments, to: result)
+            handle(call, with: addHPosition, to: result)
 
         case "addFeedUnit":
-            wrap(handler: addFeedUnit, with: call.arguments, to: result)
+            handle(call, with: addFeedUnit, to: result)
         case "addFeedLine":
-            wrap(handler: addFeedLine, with: call.arguments, to: result)
+            handle(call, with: addFeedLine, to: result)
 
         case "addCut":
-            wrap(handler: addCut, with: call.arguments, to: result)
+            handle(call, with: addCut, to: result)
 
         default:
             result(FlutterMethodNotImplemented)

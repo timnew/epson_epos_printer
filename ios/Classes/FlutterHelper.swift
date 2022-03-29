@@ -8,12 +8,19 @@ enum LibraryError : Error {
     case invalidId(id: Int32)
 }
 
-func wrap(handler: (_ arguments: Any?) throws -> Any, with arguments: Any?, to callback: @escaping FlutterResult) {
+func handle(_ call: FlutterMethodCall, with handler: (_ arguments: Any?) throws -> Any, to callback: @escaping FlutterResult) {
+    print("\(call.method) with \(call.arguments ?? "<nil>")")
     do {
-        let result = try handler(arguments)
+        let result = try handler(call.arguments)
+        if result is Void {
+            callback(nil)
+        } else {
+            print("Result of method \(call.method): \(result)")
         callback(result)
+        }
     } catch {
-        callback(flutterError(fromError: error))
+        print("Error in method \(call.method): \(error)")
+        callback(flutterError(fromError: error, method: "in \(call.method)"))
     }
 }
 
@@ -41,28 +48,28 @@ func instArgsDict(from arguments: Any?) throws -> (Epos2Printer, Dictionary<Stri
 }
 
 
-func flutterError(fromError error: Error) -> FlutterError {
+func flutterError(fromError error: Error, method: String? = nil) -> FlutterError {
     if let libError = error as? LibraryError {
         switch libError {
         case .badMarshal:
-            return FlutterError(code: "library", message: "Bad Marshal Structure", details: nil)
+            return FlutterError(code: "library", message: "Bad Marshal Structure", details: method)
         case .badEnum(name: let name, value: let value):
-            return FlutterError(code: "library", message: "Bad Enum: \(name) = \(value)", details: nil)
+            return FlutterError(code: "library", message: "Bad Enum: \(name) = \(value)", details: method)
         case .epos2Error(code: let code):
-            return flutterError(fromCode: code)!
+            return flutterError(fromCode: code,  method: method)!
         case .invalidId(id: let id):
-            return FlutterError(code: "library", message: "Invalid instance id \(id)", details: nil)
+            return FlutterError(code: "library", message: "Invalid instance id \(id)", details: method)
         }
     }
 
-    return FlutterError(code: "library", message: "Unexpected error", details: "\(error)")
+    return FlutterError(code: "library", message: "Unexpected error: \(error)", details: method)
 
 }
 
-func flutterError(fromCode resultCode: Int32) -> FlutterError? {
+func flutterError(fromCode resultCode: Int32, method: String? = nil) -> FlutterError? {
     guard resultCode != EPOS2_SUCCESS.rawValue else { return nil }
 
     return FlutterError(code: errorCodeName(from: resultCode),
                         message: nil,
-                        details: nil)
+                        details: method)
 }
