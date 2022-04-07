@@ -101,8 +101,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
       await printer.addTextLines([
         "------------------------------------------",
-        "Name:  Tim WEN",
-        "Phone: +61 456 789 123",
+        "Name:  John Smith",
+        "Phone: (123) 456-7890",
       ]);
 
       await _useLargeText(printer);
@@ -114,24 +114,23 @@ class _HomeScreenState extends State<HomeScreen> {
 
       await printer.addTextLines([
         "------------------------------------------",
-        "- Test Food -",
+        "- Popular Bakery Set -",
       ]);
 
       await _useLargeText(printer);
 
       await printer.addTextLines([
-        "2x Test Set",
+        "2x Mahoushoujo's Cake",
       ]);
 
       await _useNormalText(printer);
       await _beginBold(printer);
 
       await printer.addTextLines([
-        "+ Pickle",
-        "+ Wings",
-        "+ Pork",
-        "+ Whole Meal",
-        "+ Drink with no ice",
+        "+ Chocolate Base",
+        "+ Mango Jelly",
+        "+ Strawberry Icing",
+        "+ Magic Case",
         "",
       ]);
 
@@ -141,9 +140,9 @@ class _HomeScreenState extends State<HomeScreen> {
       await printer.addTextAlign(Epos2Alignment.CENTER);
 
       await printer.addTextLines([
-        "Tim's Test Home Kitchen",
+        "Gütiokipänja Bakery",
         "2021-03-21 11:35 AM",
-        "Powered by MrYum.com",
+        "Powered by Kiki's Delivery Service",
       ]);
 
       await printer.addCut(Epos2Cut.CUT_FEED);
