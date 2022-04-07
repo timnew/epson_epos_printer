@@ -14,7 +14,7 @@ EXTERNAL SOURCES:
     :path: Flutter
 
 SPEC CHECKSUMS:
-  epson_epos_printer: 0eed865de7c2cea385fe7128de500d0da56c767d
+  epson_epos_printer: d54cbc9a429ca5bded83c764b90055cf5a49e0ec
   Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
 
 PODFILE CHECKSUM: aafe91acc616949ddb318b77800a7f51bffa2a4c
