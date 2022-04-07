@@ -8,7 +8,7 @@ enum LibraryError : Error {
     case invalidId(id: Int32)
 }
 
-func handle(_ call: FlutterMethodCall, with handler: (_ arguments: Any?) throws -> Any, to callback: @escaping FlutterResult) {
+func runHandler(_ handler: (_ arguments: Any?) throws -> Any, for call: FlutterMethodCall, returnTo callback: @escaping FlutterResult) {
     print("\(call.method) with \(call.arguments ?? "<nil>")")
     do {
         let result = try handler(call.arguments)

@@ -45,48 +45,48 @@ public class EposPrinterPlugin : NSObject, FlutterPlugin {
             result(nil)
 
         case "createPrinter":
-            handle(call, with: createPrinter, to: result)
+            runHandler(createPrinter, for: call, returnTo: result)
         case "destroyPrinter":
-            handle(call, with: destroyPrinter, to: result)
+            runHandler(destroyPrinter, for: call, returnTo: result)
 
         case "sendData":
-            handle(call, with: sendData, to: result)
+            runHandler(sendData, for: call, returnTo: result)
         case "clearCommandBuffer":
-            handle(call, with: clearCommandBuffer, to: result)
+            runHandler(clearCommandBuffer, for: call, returnTo: result)
 
         case "connect":
-            handle(call, with: connect, to: result)
+            runHandler(connect, for: call, returnTo: result)
         case "disconnect":
-            handle(call, with: disconnect, to: result)
+            runHandler(disconnect, for: call, returnTo: result)
 
         case "addTextAlign":
-            handle(call, with: addTextAlign, to: result)
+            runHandler(addTextAlign, for: call, returnTo: result)
         case "addLineSpace":
-            handle(call, with: addLineSpace, to: result)
+            runHandler(addLineSpace, for: call, returnTo: result)
         case "addTextRotate":
-            handle(call, with: addTextRotate, to: result)
+            runHandler(addTextRotate, for: call, returnTo: result)
         case "addText":
-            handle(call, with: addText, to: result)
+            runHandler(addText, for: call, returnTo: result)
         case "addTextLang":
-            handle(call, with: addTextLang, to: result)
+            runHandler(addTextLang, for: call, returnTo: result)
         case "addTextFont":
-            handle(call, with: addTextFont, to: result)
+            runHandler(addTextFont, for: call, returnTo: result)
         case "addTextSmooth":
-            handle(call, with: addTextSmooth, to: result)
+            runHandler(addTextSmooth, for: call, returnTo: result)
         case "addTextSize":
-            handle(call, with: addTextSize, to: result)
+            runHandler(addTextSize, for: call, returnTo: result)
         case "addTextStyle":
-            handle(call, with: addTextStyle, to: result)
+            runHandler(addTextStyle, for: call, returnTo: result)
         case "addHPosition":
-            handle(call, with: addHPosition, to: result)
+            runHandler(addHPosition, for: call, returnTo: result)
 
         case "addFeedUnit":
-            handle(call, with: addFeedUnit, to: result)
+            runHandler(addFeedUnit, for: call, returnTo: result)
         case "addFeedLine":
-            handle(call, with: addFeedLine, to: result)
+            runHandler(addFeedLine, for: call, returnTo: result)
 
         case "addCut":
-            handle(call, with: addCut, to: result)
+            runHandler(addCut, for: call, returnTo: result)
 
         default:
             result(FlutterMethodNotImplemented)
