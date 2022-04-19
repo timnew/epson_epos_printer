@@ -6,7 +6,7 @@ import Flutter
 /// * Channel Type: EventChannel
 /// * Codec: StandardCodec
 ///
-/// * Method: Stream onListen(Epos2FilterOption)
+/// * Method: Stream<Epos2Device> onListen(Epos2FilterOption)
 /// * Method: void onCancel()
 ///
 /// * Type Epos2FilterOption
@@ -56,7 +56,7 @@ public class EposDiscoveryPlugin: NSObject, FlutterStreamHandler {
               let broadcast = args["broadcast"] as? String,
               let deviceModel = args["deviceModel"] as? Int32,
               let deviceType = args["deviceType"] as? Int32 else {
-            return flutterError(fromError: LibraryError.badMarshal)
+            return flutterError(fromError: LibraryError.badMarshal, method: "EposDiscoveryPlugin.onListen")
         }
 
         let filterOption = Epos2FilterOption()

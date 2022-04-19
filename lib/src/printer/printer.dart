@@ -1,14 +1,37 @@
-import 'package:epson_epos_printer/src/printer.dart';
+import 'dart:async';
 
-import '../util.dart';
+import 'package:flutter/services.dart';
+
+import '../exception_helper.dart';
+import '../exceptions.dart';
+import '../assertions.dart';
+import 'enums.dart';
 import 'private.dart';
+import 'types.dart';
 
 class Epos2Printer {
   final int id;
   final Epos2Series series;
   final Epos2Model model;
+  final EventChannel _statusChannel;
+  final EventChannel _eventChannel;
+  late final StreamController _eventController;
 
-  Epos2Printer._(this.id, this.series, this.model);
+  Epos2Printer._(this.id, this.series, this.model)
+      : _statusChannel = EventChannel("epson_epos_printer/printer/$id/status"),
+        _eventChannel = EventChannel("epson_epos_printer/printer/$id/event") {
+    _eventController = StreamController.broadcast(
+      onListen: _onEventListen,
+      onCancel: _onEventCancel,
+      sync: true,
+    );
+  }
+
+  void _onStatusCancel() {}
+
+  void _onEventCancel() {}
+
+  void _onEventListen() {}
 
   static Future<Epos2Printer> create({
     required Epos2Series series,
@@ -21,6 +44,12 @@ class Epos2Printer {
       );
 
   Future<void> dispose() async => destroyNativePrinter(id);
+
+  Stream<Epos2CallbackCode> statusStream() =>
+      _statusChannel.receiveBroadcastStream().map(decodeEpos2CallbackCode);
+
+  Stream<Epos2PrinterEvent> eventStream() =>
+      _eventChannel.receiveBroadcastStream().map(decodeEpos2PrinterEvent);
 
   // ==========================================================================
 

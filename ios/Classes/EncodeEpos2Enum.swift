@@ -1,57 +1,18 @@
 import Foundation
 import Flutter
 
+
 func check(resultCode: Int32) throws {
     guard resultCode == EPOS2_SUCCESS.rawValue else {
         throw LibraryError.epos2Error(code: resultCode)
     }
 }
 
-func errorCodeName(from resultCode: Int32) -> String {
-    switch resultCode {
-    case EPOS2_SUCCESS.rawValue:
-        return "EPOS2_SUCCESS"
-    case EPOS2_ERR_PARAM.rawValue:
-        return "EPOS2_ERR_PARAM"
-    case EPOS2_ERR_CONNECT.rawValue:
-        return "EPOS2_ERR_CONNECT"
-    case EPOS2_ERR_TIMEOUT.rawValue:
-        return "EPOS2_ERR_TIMEOUT"
-    case EPOS2_ERR_MEMORY.rawValue:
-        return "EPOS2_ERR_MEMORY"
-    case EPOS2_ERR_ILLEGAL.rawValue:
-        return "EPOS2_ERR_ILLEGAL"
-    case EPOS2_ERR_PROCESSING.rawValue:
-        return "EPOS2_ERR_PROCESSING"
-    case EPOS2_ERR_NOT_FOUND.rawValue:
-        return "EPOS2_ERR_NOT_FOUND"
-    case EPOS2_ERR_IN_USE.rawValue:
-        return "EPOS2_ERR_IN_USE"
-    case EPOS2_ERR_TYPE_INVALID.rawValue:
-        return "EPOS2_ERR_TYPE_INVALID"
-    case EPOS2_ERR_DISCONNECT.rawValue:
-        return "EPOS2_ERR_DISCONNECT"
-    case EPOS2_ERR_ALREADY_OPENED.rawValue:
-        return "EPOS2_ERR_ALREADY_OPENED"
-    case EPOS2_ERR_ALREADY_USED.rawValue:
-        return "EPOS2_ERR_ALREADY_USED"
-    case EPOS2_ERR_BOX_COUNT_OVER.rawValue:
-        return "EPOS2_ERR_BOX_COUNT_OVER"
-    case EPOS2_ERR_BOX_CLIENT_OVER.rawValue:
-        return "EPOS2_ERR_BOX_CLIENT_OVER"
-    case EPOS2_ERR_UNSUPPORTED.rawValue:
-        return "EPOS2_ERR_UNSUPPORTED"
-    case EPOS2_ERR_DEVICE_BUSY.rawValue:
-        return "EPOS2_ERR_DEVICE_BUSY"
-    case EPOS2_ERR_RECOVERY_FAILURE.rawValue:
-        return "EPOS2_ERR_RECOVERY_FAILURE"
-    default:
-        return "EPOS2_ERR_FAILURE"
-    }
+func encodeEpos2Bool(_ value: Bool) -> Int32 {
+    return value ? EPOS2_TRUE : EPOS2_FALSE
 }
 
-
-func epos2Series(byName name: String) throws -> Int32 {
+func encodeEpos2PrinterSeries(_ name: String) throws -> Int32 {
     switch name {
     case "TM_M10":
         return EPOS2_TM_M10.rawValue;
@@ -108,7 +69,7 @@ func epos2Series(byName name: String) throws -> Int32 {
     }
 }
 
-func epos2Model(byName name: String) throws -> Int32 {
+func encodeEpos2ModelLang(_ name: String) throws -> Int32 {
     switch name {
     case "ANK":
       return EPOS2_MODEL_ANK.rawValue;
@@ -127,7 +88,7 @@ func epos2Model(byName name: String) throws -> Int32 {
     }
 }
 
-func epos2Align(byName name: String) throws -> Int32 {
+func encodeEpos2Align(_ name: String) throws -> Int32 {
     switch name {
     case "DEFAULT":
       return EPOS2_PARAM_DEFAULT
@@ -142,7 +103,7 @@ func epos2Align(byName name: String) throws -> Int32 {
     }
 }
 
-func epos2Cut(byName name: String) throws -> Int32 {
+func encodeEpos2Cut(_ name: String) throws -> Int32 {
     switch name {
     case "DEFAULT":
       return EPOS2_PARAM_DEFAULT
@@ -157,7 +118,7 @@ func epos2Cut(byName name: String) throws -> Int32 {
     }
 }
 
-func epos2Lang(byName name: String) throws  -> Int32 {
+func encodeEpos2Lang(_ name: String) throws  -> Int32 {
     switch name {
     case "DEFAULT":
       return EPOS2_PARAM_DEFAULT
@@ -182,7 +143,7 @@ func epos2Lang(byName name: String) throws  -> Int32 {
     }
 }
 
-func epos2Font(byName name: String) throws  -> Int32 {
+func encodeEpos2Font(_ name: String) throws  -> Int32 {
     switch name {
     case "DEFAULT":
       return EPOS2_PARAM_DEFAULT
@@ -201,7 +162,7 @@ func epos2Font(byName name: String) throws  -> Int32 {
     }
 }
 
-func epos2Color(byName name: String) throws  -> Int32 {
+func encodeEpos2Color(_ name: String) throws  -> Int32 {
     switch name {
     case "DEFAULT":
       return EPOS2_PARAM_DEFAULT
@@ -220,6 +181,3 @@ func epos2Color(byName name: String) throws  -> Int32 {
     }
 }
 
-func epos2Bool(from value: Bool) -> Int32 {
-    return value ? EPOS2_TRUE : EPOS2_FALSE
-}

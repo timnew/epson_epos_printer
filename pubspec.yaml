@@ -11,6 +11,7 @@ dependencies:
   flutter:
     sdk: flutter
   freezed_annotation: ^1.1.0
+  json_annotation: ^4.4.0
   lint: ^1.8.2
   logging: ^1.0.2
 
@@ -20,6 +21,7 @@ dev_dependencies:
   flutter_lints: ^1.0.0
   freezed: ^1.1.1
   build_runner: ^2.1.8
+  json_serializable: ^6.1.6
 
 flutter:
   plugin:

@@ -1,4 +1,5 @@
 import Foundation
+ 
 
 class InstanceManager {
     static private var printers: Dictionary<Int32, Epos2Printer> = [:];

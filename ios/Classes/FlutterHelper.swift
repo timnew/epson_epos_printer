@@ -48,27 +48,36 @@ func instArgsDict(from arguments: Any?) throws -> (Epos2Printer, Dictionary<Stri
 }
 
 
-func flutterError(fromError error: Error, method: String? = nil) -> FlutterError {
+func flutterError(fromError error: Error, method: String) -> FlutterError {
     if let libError = error as? LibraryError {
         switch libError {
-        case .badMarshal:
-            return FlutterError(code: "library", message: "Bad Marshal Structure", details: method)
-        case .badEnum(name: let name, value: let value):
-            return FlutterError(code: "library", message: "Bad Enum: \(name) = \(value)", details: method)
         case .epos2Error(code: let code):
             return flutterError(fromCode: code,  method: method)!
+        
+        case .badMarshal:
+            return FlutterError(code: "lib-BadMarshal",
+                                message: "Bad Marshal from \(method)",
+                                details: method)
+        
+        case .badEnum(name: let name, value: let value):
+            return FlutterError(code: "lib-BadEnum",
+                                message: "\(name) = \(value)",
+                                details: method)
+                
         case .invalidId(id: let id):
-            return FlutterError(code: "library", message: "Invalid instance id \(id)", details: method)
+            return FlutterError(code: "lib-InvalidInstanceId",
+                                message: "Invalid instance id \(id)",
+                                details: method)
         }
     }
 
-    return FlutterError(code: "library", message: "Unexpected error: \(error)", details: method)
+    return FlutterError(code: "lib-Unknown", message: "\(error)", details: method)
 }
 
 func flutterError(fromCode resultCode: Int32, method: String? = nil) -> FlutterError? {
     guard resultCode != EPOS2_SUCCESS.rawValue else { return nil }
 
-    return FlutterError(code: errorCodeName(from: resultCode),
+    return FlutterError(code: decodeEpos2ErrorStatus(resultCode),
                         message: nil,
                         details: method)
 }
