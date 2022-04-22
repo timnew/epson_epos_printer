@@ -135,7 +135,7 @@ Future<int> createNativePrinter(Epos2Series series, Epos2Model model) async {
     "model": model.name,
   }).handlePlatformException();
 
-  return checkNotNull(id);
+  return id.checkNotNull();
 }
 
 Future<void> destroyNativePrinter(int id) async {

@@ -14,6 +14,187 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more informations: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
 
+/// @nodoc
+class _$Epos2PrinterCreationOptionsTearOff {
+  const _$Epos2PrinterCreationOptionsTearOff();
+
+  _Epos2PrinterCreationOptions call(
+      {required Epos2Series series,
+      required Epos2Model model,
+      required String target}) {
+    return _Epos2PrinterCreationOptions(
+      series: series,
+      model: model,
+      target: target,
+    );
+  }
+}
+
+/// @nodoc
+const $Epos2PrinterCreationOptions = _$Epos2PrinterCreationOptionsTearOff();
+
+/// @nodoc
+mixin _$Epos2PrinterCreationOptions {
+  Epos2Series get series => throw _privateConstructorUsedError;
+  Epos2Model get model => throw _privateConstructorUsedError;
+  String get target => throw _privateConstructorUsedError;
+
+  @JsonKey(ignore: true)
+  $Epos2PrinterCreationOptionsCopyWith<Epos2PrinterCreationOptions>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $Epos2PrinterCreationOptionsCopyWith<$Res> {
+  factory $Epos2PrinterCreationOptionsCopyWith(
+          Epos2PrinterCreationOptions value,
+          $Res Function(Epos2PrinterCreationOptions) then) =
+      _$Epos2PrinterCreationOptionsCopyWithImpl<$Res>;
+  $Res call({Epos2Series series, Epos2Model model, String target});
+}
+
+/// @nodoc
+class _$Epos2PrinterCreationOptionsCopyWithImpl<$Res>
+    implements $Epos2PrinterCreationOptionsCopyWith<$Res> {
+  _$Epos2PrinterCreationOptionsCopyWithImpl(this._value, this._then);
+
+  final Epos2PrinterCreationOptions _value;
+  // ignore: unused_field
+  final $Res Function(Epos2PrinterCreationOptions) _then;
+
+  @override
+  $Res call({
+    Object? series = freezed,
+    Object? model = freezed,
+    Object? target = freezed,
+  }) {
+    return _then(_value.copyWith(
+      series: series == freezed
+          ? _value.series
+          : series // ignore: cast_nullable_to_non_nullable
+              as Epos2Series,
+      model: model == freezed
+          ? _value.model
+          : model // ignore: cast_nullable_to_non_nullable
+              as Epos2Model,
+      target: target == freezed
+          ? _value.target
+          : target // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+abstract class _$Epos2PrinterCreationOptionsCopyWith<$Res>
+    implements $Epos2PrinterCreationOptionsCopyWith<$Res> {
+  factory _$Epos2PrinterCreationOptionsCopyWith(
+          _Epos2PrinterCreationOptions value,
+          $Res Function(_Epos2PrinterCreationOptions) then) =
+      __$Epos2PrinterCreationOptionsCopyWithImpl<$Res>;
+  @override
+  $Res call({Epos2Series series, Epos2Model model, String target});
+}
+
+/// @nodoc
+class __$Epos2PrinterCreationOptionsCopyWithImpl<$Res>
+    extends _$Epos2PrinterCreationOptionsCopyWithImpl<$Res>
+    implements _$Epos2PrinterCreationOptionsCopyWith<$Res> {
+  __$Epos2PrinterCreationOptionsCopyWithImpl(
+      _Epos2PrinterCreationOptions _value,
+      $Res Function(_Epos2PrinterCreationOptions) _then)
+      : super(_value, (v) => _then(v as _Epos2PrinterCreationOptions));
+
+  @override
+  _Epos2PrinterCreationOptions get _value =>
+      super._value as _Epos2PrinterCreationOptions;
+
+  @override
+  $Res call({
+    Object? series = freezed,
+    Object? model = freezed,
+    Object? target = freezed,
+  }) {
+    return _then(_Epos2PrinterCreationOptions(
+      series: series == freezed
+          ? _value.series
+          : series // ignore: cast_nullable_to_non_nullable
+              as Epos2Series,
+      model: model == freezed
+          ? _value.model
+          : model // ignore: cast_nullable_to_non_nullable
+              as Epos2Model,
+      target: target == freezed
+          ? _value.target
+          : target // ignore: cast_nullable_to_non_nullable
+              as String,
+    ));
+  }
+}
+
+/// @nodoc
+
+class _$_Epos2PrinterCreationOptions extends _Epos2PrinterCreationOptions {
+  const _$_Epos2PrinterCreationOptions(
+      {required this.series, required this.model, required this.target})
+      : super._();
+
+  @override
+  final Epos2Series series;
+  @override
+  final Epos2Model model;
+  @override
+  final String target;
+
+  @override
+  String toString() {
+    return 'Epos2PrinterCreationOptions(series: $series, model: $model, target: $target)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _Epos2PrinterCreationOptions &&
+            const DeepCollectionEquality().equals(other.series, series) &&
+            const DeepCollectionEquality().equals(other.model, model) &&
+            const DeepCollectionEquality().equals(other.target, target));
+  }
+
+  @override
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(series),
+      const DeepCollectionEquality().hash(model),
+      const DeepCollectionEquality().hash(target));
+
+  @JsonKey(ignore: true)
+  @override
+  _$Epos2PrinterCreationOptionsCopyWith<_Epos2PrinterCreationOptions>
+      get copyWith => __$Epos2PrinterCreationOptionsCopyWithImpl<
+          _Epos2PrinterCreationOptions>(this, _$identity);
+}
+
+abstract class _Epos2PrinterCreationOptions
+    extends Epos2PrinterCreationOptions {
+  const factory _Epos2PrinterCreationOptions(
+      {required Epos2Series series,
+      required Epos2Model model,
+      required String target}) = _$_Epos2PrinterCreationOptions;
+  const _Epos2PrinterCreationOptions._() : super._();
+
+  @override
+  Epos2Series get series;
+  @override
+  Epos2Model get model;
+  @override
+  String get target;
+  @override
+  @JsonKey(ignore: true)
+  _$Epos2PrinterCreationOptionsCopyWith<_Epos2PrinterCreationOptions>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
 Epos2PrinterEvent _$Epos2PrinterEventFromJson(Map<String, dynamic> json) {
   return _Epos2PrinterEvent.fromJson(json);
 }

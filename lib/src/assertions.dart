@@ -1,19 +1,29 @@
-import 'package:flutter/services.dart';
-
-import 'exceptions.dart';
-
 void check(bool condition, String message) {
   if (!condition) {
     throw AssertionError(message);
   }
 }
 
-T checkNotNull<T>(T? value, [String? message]) {
-  if (value == null) {
-    throw AssertionError(message ?? "Unexpected null value");
+extension NullableExtension<T> on T? {
+  T checkNotNull([String? message]) {
+    final value = this;
+
+    if (value == null) {
+      throw AssertionError(message ?? "Unexpected null value");
+    }
+
+    return value;
   }
 
-  return value;
+  T requireNotNull([String? name]) {
+    final value = this;
+
+    if (value == null) {
+      throw ArgumentError.notNull(name);
+    }
+
+    return value;
+  }
 }
 
 int checkInRange(int value, String name, int min, int max) {

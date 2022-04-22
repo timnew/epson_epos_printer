@@ -2,8 +2,6 @@ import 'dart:async';
 
 import 'package:flutter/services.dart';
 
-import '../exception_helper.dart';
-import '../exceptions.dart';
 import '../assertions.dart';
 import 'enums.dart';
 import 'private.dart';
@@ -13,35 +11,37 @@ class Epos2Printer {
   final int id;
   final Epos2Series series;
   final Epos2Model model;
+  final String target;
   final EventChannel _statusChannel;
   final EventChannel _eventChannel;
-  late final StreamController _eventController;
 
-  Epos2Printer._(this.id, this.series, this.model)
+  Epos2Printer._(this.id, this.series, this.model, this.target)
       : _statusChannel = EventChannel("epson_epos_printer/printer/$id/status"),
-        _eventChannel = EventChannel("epson_epos_printer/printer/$id/event") {
-    _eventController = StreamController.broadcast(
-      onListen: _onEventListen,
-      onCancel: _onEventCancel,
-      sync: true,
-    );
-  }
-
-  void _onStatusCancel() {}
-
-  void _onEventCancel() {}
-
-  void _onEventListen() {}
+        _eventChannel = EventChannel("epson_epos_printer/printer/$id/event");
 
   static Future<Epos2Printer> create({
     required Epos2Series series,
     required Epos2Model model,
+    required String target,
   }) async =>
       Epos2Printer._(
         await createNativePrinter(series, model),
         series,
         model,
+        target,
       );
+
+  static Future<Epos2Printer> createFromOptions(
+    Epos2PrinterCreationOptions options,
+  ) async =>
+      create(
+        series: options.series,
+        model: options.model,
+        target: options.target,
+      );
+
+  @override
+  String toString() => "{Epos2Printer[$id] $series $model $target}";
 
   Future<void> dispose() async => destroyNativePrinter(id);
 
@@ -54,8 +54,7 @@ class Epos2Printer {
   // ==========================================================================
 
   /// * Method: void connect({id: String, args: {String target, Long timeout}})
-  Future<void> connect(
-    String target, {
+  Future<void> connect({
     Duration timeout = const Duration(milliseconds: 15000),
   }) async =>
       invokeChannel(
