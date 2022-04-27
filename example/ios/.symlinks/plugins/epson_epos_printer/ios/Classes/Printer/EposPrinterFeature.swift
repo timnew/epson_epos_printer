@@ -123,10 +123,11 @@ import Flutter
 /// ```
 
 
-public class EposPrinterPlugin : NSObject, FlutterPlugin {
+public class EposPrinterFeature : NSObject, FlutterPlugin {
+    @objc
     public static func register(with registrar: FlutterPluginRegistrar) {
         let channel = FlutterMethodChannel(name: "epson_epos_printer/printer", binaryMessenger: registrar.messenger())
-        let instance = EposPrinterPlugin(channel: channel, messenger: registrar.messenger())
+        let instance = EposPrinterFeature(channel: channel, messenger: registrar.messenger())
         registrar.addMethodCallDelegate(instance, channel: channel)
     }
     
@@ -140,9 +141,11 @@ public class EposPrinterPlugin : NSObject, FlutterPlugin {
     public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
         switch(call.method){
         case "init":
+            for printer in InstanceManager.allPrinters() {
+                safeDispose(printer: printer)
+            }
             InstanceManager.reset()
-            result(nil)
-            
+            result(nil)            
         case "createPrinter":
             runHandler(createPrinter, for: call, returnTo: result)
         case "destroyPrinter":
@@ -150,6 +153,7 @@ public class EposPrinterPlugin : NSObject, FlutterPlugin {
             
         case "sendData":
             runHandler(sendData, for: call, returnTo: result)
+            
         case "clearCommandBuffer":
             runHandler(clearCommandBuffer, for: call, returnTo: result)
             
@@ -193,7 +197,7 @@ public class EposPrinterPlugin : NSObject, FlutterPlugin {
     }
     
     /// * Method: int createPrinter({String series, String model})
-    func createPrinter(_ arguments: Any?) throws -> Any {
+    func createPrinter(_ arguments: Any?) throws -> Int32 {
         guard let argMap = arguments as? Dictionary<String, Any>,
               let seriesName = argMap["series"] as? String,
               let modelName = argMap["model"] as? String else {
@@ -204,20 +208,11 @@ public class EposPrinterPlugin : NSObject, FlutterPlugin {
         let model = try encodeEpos2ModelLang(modelName)
         let printer = Epos2Printer.init(printerSeries: series, lang: model)!
         
-        let id =  InstanceManager.register(printer: printer)
+        let id = InstanceManager.register(printer: printer);
         
-        let statusChannel = FlutterEventChannel(name: "epson_epos_printer/printer/\(id)/status",
-                                                binaryMessenger: messenger)
-        let eventChannel = FlutterEventChannel(name: "epson_epos_printer/printer/\(id)/event",
-                                               binaryMessenger: messenger)
-        
-        let statusDelegate = PrinterStatusDelegate(printer: printer,
-                                                   channel: statusChannel)
+        let statusDelegate = PrinterStatusDelegate(id: id, messenger: messenger, attachTo: printer)
         printer.setStatusChangeEventDelegate(statusDelegate)
-        
-        let eventDelegate = PrinterEventDelegate(channel: eventChannel)
-        printer.setReceiveEventDelegate(eventDelegate)
-        
+      
         return id;
     }
     
@@ -228,7 +223,9 @@ public class EposPrinterPlugin : NSObject, FlutterPlugin {
             throw LibraryError.badMarshal
         }
         
-        InstanceManager.release(id: printerId)
+        guard let printer = InstanceManager.release(id: printerId) else { return }
+        
+        safeDispose(printer: printer)       
     }
     
     // ==========================================================================
@@ -468,104 +465,4 @@ public class EposPrinterPlugin : NSObject, FlutterPlugin {
         try check(resultCode: code)
     }
     
-}
-
-class PrinterStatusDelegate :  NSObject, Epos2PtrStatusChangeDelegate, FlutterStreamHandler {
-    let printer: Epos2Printer
-    let channel: FlutterEventChannel
-    private var eventSink: FlutterEventSink?
-    
-    init(printer: Epos2Printer,
-         channel: FlutterEventChannel) {
-        self.printer = printer
-        self.channel = channel
-        
-        super.init()
-        
-        channel.setStreamHandler(self)
-    }
-    
-    func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
-        let code = printer.startMonitor()
-        let error = flutterError(fromCode: code, method: "startMonitor")
-        
-        guard error == nil else { return error }
-        
-        eventSink = events
-        
-        return nil
-    }
-    
-    func onCancel(withArguments arguments: Any?) -> FlutterError? {
-        let code = printer.stopMonitor()
-        let error =  flutterError(fromCode: code, method: "stopMonitor")
-        
-        guard error == nil else { return error }
-        
-        eventSink = nil
-        
-        return error
-    }
-    
-    func onPtrStatusChange(_ printerObj: Epos2Printer, eventType: Int32) {
-        guard let sink = eventSink else { return }
-        
-        do {
-            sink(try decodeEpos2CallbackCode(eventType))
-        } catch {
-            sink(flutterError(fromError: error, method: "onPtrStatusChange"))
-        }
-        
-    }
-}
-
-class PrinterEventDelegate :  NSObject, Epos2PtrReceiveDelegate, FlutterStreamHandler {
-    let channel : FlutterEventChannel
-    private var eventSink: FlutterEventSink?
-    
-    init( channel: FlutterEventChannel) {
-        self.channel = channel
-        super.init()
-        channel.setStreamHandler(self)
-    }
-    
-    func onListen(withArguments arguments: Any?, eventSink events: @escaping FlutterEventSink) -> FlutterError? {
-        self.eventSink = events
-        return nil
-    }
-    
-    func onCancel(withArguments arguments: Any?) -> FlutterError? {
-        self.eventSink = nil
-        return nil
-    }
-    
-    func onPtrReceive(_ printerObj: Epos2Printer!, code: Int32, status: Epos2PrinterStatusInfo, printJobId: String!) {
-        guard let sink = eventSink else { return }
-        
-        do {
-            let event: Dictionary<String, Any?> = [
-                "event": try decodeEpos2StatusEvent(code),
-                "printerJobId": printJobId,
-                "connection": try decodeEpos2Bool(status.connection, name: "Epos2PrinterStatusInfo.connection"),
-                "online": try decodeEpos2OptionalBool(status.online, name: "Epos2PrinterStatusInfo.online"),
-                "coverOpen": try decodeEpos2OptionalBool(status.coverOpen, name: "Epos2PrinterStatusInfo.coverOpen"),
-                "paper": try decodeEpos2StatusPaper(status.paper),
-                "paperFeed": try decodeEpos2OptionalBool(status.paperFeed, name: "Epos2PrinterStatusInfo.paperFeed"),
-                "panelSwitch": try decodeEpos2OptionalBool(status.panelSwitch, name: "Epos2PrinterStatusInfo.panelSwitch"),
-                "waitOnline": status.waitOnline, // TODO: Not documented, maybe remove this?!
-                "drawer": try decodeEpos2StatusDrawer(status.drawer),
-                "errorStatus": try decodeEpos2PrinterError(status.errorStatus),
-                "autoRecoverError": try decodeEpos2AutoRecoverError(status.autoRecoverError),
-                "buzzer": try decodeEpos2OptionalBool(status.buzzer, name: "Epos2PrinterStatusInfo.buzzer"),
-                "adapter": try decodeEpos2OptionalBool(status.adapter, name: "Epos2PrinterStatusInfo.adapter"),
-                "batteryLevel": try decodeEpos2BatteryLevel(status.batteryLevel),
-                "removalWaiting": try decodeEpos2RemovalWaiting(status.removalWaiting),
-                "unrecoverError": try decodeEpos2UnrecoverError(status.unrecoverError)
-            ]
-            
-            sink(event)
-        } catch {
-            sink(flutterError(fromError: error, method: "onPtrReceive"))
-        }
-    }
 }

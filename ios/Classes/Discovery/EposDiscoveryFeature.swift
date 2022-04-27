@@ -30,13 +30,13 @@ import Flutter
 ///   "bdAddress": String
 /// }
 /// ```
-public class EposDiscoveryPlugin: NSObject, FlutterStreamHandler {
+public class EposDiscoveryFeature: NSObject, FlutterStreamHandler {
     @objc
     public static func register(with registrar: FlutterPluginRegistrar) {
         let streamChannel = FlutterEventChannel(name: "epson_epos_printer/discovery",
                                                 binaryMessenger: registrar.messenger())
 
-        let instance = EposDiscoveryPlugin()
+        let instance = EposDiscoveryFeature()
 
         streamChannel.setStreamHandler(instance)
     }
@@ -68,13 +68,13 @@ public class EposDiscoveryPlugin: NSObject, FlutterStreamHandler {
 
         let delegate = DiscoveryDelegate(eventSink: events)
         let resultCode = Epos2Discovery.start(filterOption, delegate: delegate)
-        return flutterError(fromCode: resultCode)
+        return flutterError(returnCode: resultCode, method: "Epos2Discovery.start")
     }
 
     public func onCancel(withArguments arguments: Any?) -> FlutterError? {
         let resultCode = Epos2Discovery.stop()
 
-        return flutterError(fromCode: resultCode)
+        return flutterError(returnCode: resultCode, method: "Epos2Discovery.stop")
     }
 }
 
