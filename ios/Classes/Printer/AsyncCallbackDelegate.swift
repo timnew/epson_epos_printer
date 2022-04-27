@@ -39,7 +39,7 @@ class PrinterAsyncDelegate :  NSObject, Epos2PtrReceiveDelegate  {
                         
             try check(callbackCode: code, printerStatus: printerStatus)
             
-            callback(printer)
+            callback(printerStatus)
         } catch {
             callback(flutterError(fromError: error, method: "Epos2Printer.onPtrReceive"))
         }

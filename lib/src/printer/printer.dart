@@ -153,13 +153,13 @@ class Epos2Printer {
   Future<Epos2PrinterStatusInfo> sendData({
     Duration timeout = const Duration(milliseconds: 10000),
   }) async =>
-      invokeChannel<Map<String, dynamic>>(
+      invokeChannel<Map>(
         id: id,
         method: "sendData",
         arguments: {"timeout": timeout.inMilliseconds},
       ).then(
         (data) => Epos2PrinterStatusInfo.fromJson(
-          data.checkNotNull(),
+          data.checkNotNull().cast(),
         ),
       );
 

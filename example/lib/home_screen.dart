@@ -71,7 +71,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
     try {
       final options = Epos2PrinterCreationOptions.from(connectionString);
-      print(options);
       final printer = await Epos2Printer.createFromOptions(options);
       setState(() {
         _printers.add(printer);
@@ -104,63 +103,75 @@ class _HomeScreenState extends State<HomeScreen> {
     try {
       await printer.connect();
 
-      await _useLargeText(printer);
+      // await _useLargeText(printer);
 
       await printer.addTextLn(DateTime.now().toIso8601String());
+      await printer.addTextLn(
+          "From printer ${printer.series.name} ${printer.model.name}");
+      await printer.addTextLn("Target: ${printer.target}");
 
-      await _useNormalText(printer);
+      // await _useNormalText(printer);
 
-      await printer.addTextLn(printer.toString());
+      // await printer.addTextLn(printer.toString());
 
-      await printer.addTextLines([
-        "------------------------------------------",
-        "Name:  John Smith",
-        "Phone: (123) 456-7890",
-      ]);
+      // await printer.addTextLines([
+      //   "------------------------------------------",
+      //   "Name:  John Smith",
+      //   "Phone: (123) 456-7890",
+      // ]);
 
-      await _useLargeText(printer);
+      // await _useLargeText(printer);
 
-      await printer.addTextLn("Type:  dine-in");
-      await printer.addTextLn("Table: 18");
+      // await printer.addTextLn("Type:  dine-in");
+      // await printer.addTextLn("Table: 18");
 
-      await _useNormalText(printer);
+      // await _useNormalText(printer);
 
-      await printer.addTextLines([
-        "------------------------------------------",
-        "- Popular Bakery Set -",
-      ]);
+      // await printer.addTextLines([
+      //   "------------------------------------------",
+      //   "- Popular Bakery Set -",
+      // ]);
 
-      await _useLargeText(printer);
+      // await _useLargeText(printer);
 
-      await printer.addTextLines([
-        "2x Mahoushoujo's Cake",
-      ]);
+      // await printer.addTextLines([
+      //   "2x Mahoushoujo's Cake",
+      // ]);
 
-      await _useNormalText(printer);
-      await _beginBold(printer);
+      // await _useNormalText(printer);
+      // await _beginBold(printer);
 
-      await printer.addTextLines([
-        "+ Chocolate Base",
-        "+ Mango Jelly",
-        "+ Strawberry Icing",
-        "+ Magic Case",
-        "",
-      ]);
+      // await printer.addTextLines([
+      //   "+ Chocolate Base",
+      //   "+ Mango Jelly",
+      //   "+ Strawberry Icing",
+      //   "+ Magic Case",
+      //   "",
+      // ]);
 
-      await _endBold(printer);
+      // await _endBold(printer);
 
-      await printer.addTextLn("------------------------------------------");
-      await printer.addTextAlign(Epos2Alignment.CENTER);
+      // await printer.addTextLn("------------------------------------------");
+      // await printer.addTextAlign(Epos2Alignment.CENTER);
 
-      await printer.addTextLines([
-        "Gütiokipänja Bakery",
-        "2021-03-21 11:35 AM",
-        "Powered by Kiki's Delivery Service",
-      ]);
+      // await printer.addTextLines([
+      //   "Gütiokipänja Bakery",
+      //   "2021-03-21 11:35 AM",
+      //   "Powered by Kiki's Delivery Service",
+      // ]);
 
       await printer.addCut(Epos2Cut.CUT_FEED);
 
-      printer.sendData().ignore();
+      final status = await printer.sendData();
+
+      setState(() {
+        _error = [
+          "THIS IS NO AN ERROR\n",
+          status.toString(),
+        ].join("\n");
+      });
+
+      await printer.disconnect();
     } catch (error, stackTrace) {
       await printer.clearCommandBuffer();
       final errorMessage = "$error\n$stackTrace";

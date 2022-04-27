@@ -27,7 +27,7 @@ class Epos2AsyncException extends Epos2Exception {
         err.code,
         err.message!,
         Epos2PrinterStatusInfo.fromJson(
-          err.details as Map<String, dynamic>,
+          (err.details as Map).cast(),
         ),
       );
 }
