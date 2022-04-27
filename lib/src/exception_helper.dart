@@ -19,6 +19,10 @@ Never translatePlatformException(PlatformException error) {
     }
   }
 
+  if (error.code.startsWith("EPOS2_CODE_")) {
+    throw Epos2AsyncException.fromPlatformException(error);
+  }
+
   if (error.code.startsWith("EPOS2_ERR_")) {
     throw Epos2Exception.fromPlatformException(error);
   }

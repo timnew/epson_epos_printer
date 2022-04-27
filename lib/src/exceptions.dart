@@ -1,46 +1,53 @@
 import 'package:flutter/services.dart';
 
+import 'printer.dart';
+
 class Epos2Exception implements Exception {
   final String code;
-  final String methodName;
+  final String message;
 
-  Epos2Exception(this.code, this.methodName);
+  Epos2Exception(this.code, this.message);
   factory Epos2Exception.fromPlatformException(PlatformException err) =>
       Epos2Exception(
         err.code,
-        err.details as String,
+        err.message!,
       );
 
   @override
-  String toString() => [
-        "Epos2Exception: $code",
-        "  from: $methodName",
-      ].join("\n");
+  String toString() => "Epos2Exception $code: $message";
+}
+
+class Epos2AsyncException extends Epos2Exception {
+  final Epos2PrinterStatusInfo printerStatus;
+
+  Epos2AsyncException(String code, String message, this.printerStatus)
+      : super(code, message);
+  factory Epos2AsyncException.fromPlatformException(PlatformException err) =>
+      Epos2AsyncException(
+        err.code,
+        err.message!,
+        Epos2PrinterStatusInfo.fromJson(
+          err.details as Map<String, dynamic>,
+        ),
+      );
 }
 
 class BadMarshalError extends Error {
   final String message;
-  final String methodName;
 
-  BadMarshalError(this.message, this.methodName);
+  BadMarshalError(this.message);
   factory BadMarshalError.fromPlatformException(PlatformException err) =>
-      BadMarshalError(
-        err.message!,
-        err.details as String,
-      );
+      BadMarshalError(err.message!);
 
   @override
-  String toString() => [
-        "BadMarshalError: $message",
-        "  from: $methodName",
-      ].join("\n");
+  String toString() => "BadMarshalError: $message";
 }
 
 class BadEnumError extends Error {
   final String message;
-  final String methodName;
+  final String details;
 
-  BadEnumError(this.message, this.methodName);
+  BadEnumError(this.message, this.details);
   factory BadEnumError.fromPlatformException(PlatformException err) =>
       BadEnumError(
         err.message!,
@@ -48,17 +55,14 @@ class BadEnumError extends Error {
       );
 
   @override
-  String toString() => [
-        "BadEnumError: $message",
-        "  from: $methodName",
-      ].join("\n");
+  String toString() => "BadEnumError: $message";
 }
 
 class InvalidInstanceIdError extends Error {
   final String message;
-  final String methodName;
+  final String id;
 
-  InvalidInstanceIdError(this.message, this.methodName);
+  InvalidInstanceIdError(this.message, this.id);
   factory InvalidInstanceIdError.fromPlatformException(PlatformException err) =>
       InvalidInstanceIdError(
         err.message!,
@@ -66,17 +70,14 @@ class InvalidInstanceIdError extends Error {
       );
 
   @override
-  String toString() => [
-        "InvalidInstanceIdError: $message",
-        "  from: $methodName",
-      ].join("\n");
+  String toString() => "InvalidInstanceIdError: $message";
 }
 
 class UnexpectedError extends Error {
   final String message;
-  final String methodName;
+  final String details;
 
-  UnexpectedError(this.message, this.methodName);
+  UnexpectedError(this.message, this.details);
   factory UnexpectedError.fromPlatformException(PlatformException err) =>
       UnexpectedError(
         err.message!,
@@ -86,6 +87,6 @@ class UnexpectedError extends Error {
   @override
   String toString() => [
         "UnexpectedError: $message",
-        "  from: $methodName",
+        "  cause: $details",
       ].join("\n");
 }

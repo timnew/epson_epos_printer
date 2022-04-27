@@ -7,17 +7,98 @@ import 'enums.dart';
 import 'private.dart';
 import 'types.dart';
 
+/// Contract
+/// * Channel Name: epson_epos_printer/printer
+/// * Channel Type: MethodChannel
+/// * Codec: StandardCodec
+///
+/// * Method: int createPrinter({String series, String model})
+/// * Method: void destroyPrinter(int id)
+///
+/// * Method: void connect({id: String, args: {String target, Long timeout=15000}})
+/// * Method: void disconnect({id: String})
+///
+/// * Method: Future<PrinterStatus> sendData({id: String, args: {Long timeout=10000}})
+
+/// * Method: void clearCommandBuffer({id: String})
+///
+/// * Method: void addTextAlign({id: String, args: {String align}})
+/// * Method: void addLineSpace({id: String, args: {Long space}})
+/// * Method: void addTextRotate({id: String, args: {Bool rotate = false}})
+/// * Method: void addText({id: String, args: {String data}})
+/// * Method: void addTextLang({id: String, args: {String lang = "Default"}})
+/// * Method: void addTextFont({id: String, args: {String font = "A"}})
+/// * Method: void addTextSmooth({id: String, args: {bool smooth = false}})
+/// * Method: void addTextSize({id: String, args: {width: Long, height: Long}})
+/// * Method: void addTextStyle({id: String, args: {bool bold = false, bool underline = false, bool reverse = false, int color = DEFAULT}})
+/// * Method: void addHPosition({id: String, args: {Long position}})
+///
+/// * Method: void addFeedUnit({id: String, args: {Long unit}})
+/// * Method: void addFeedLine({id: String, args: {Long line}})
+///
+/// * Method: void addCut({id: String, args: {String cutType}})
+///
+/// * Channel Name: epson_epos_printer/printer/\(id)/status
+/// * Channel Type: EventChannel
+/// * Codec: StandardCodec
+///
+/// * Method: Stream<String> onListen()
+/// * Method: void onCancel()
+/// * Epos2StatusEvent:
+///   - ONLINE
+///   - OFFLINE
+///   - POWER_OFF
+///   - COVER_CLOSE
+///   - COVER_OPEN
+///   - PAPER_OK
+///   - PAPER_NEAR_END
+///   - PAPER_EMPTY
+///   - DRAWER_HIGH
+///   - DRAWER_LOW
+///   - BATTERY_ENOUGH
+///   - BATTERY_EMPTY
+///   - INSERTION_WAIT_SLIP
+///   - INSERTION_WAIT_VALIDATION
+///   - INSERTION_WAIT_MICR
+///   - INSERTION_WAIT_NONE
+///   - REMOVAL_WAIT_PAPER
+///   - REMOVAL_WAIT_NONE
+///   - SLIP_PAPER_OK
+///   - SLIP_PAPER_EMPTY
+///   - AUTO_RECOVER_ERROR
+///   - AUTO_RECOVER_OK
+///   - UNRECOVERABLE_ERROR
+///
+/// * Type PrinterStatus/Epos2PrinterStatusInfo
+/// ```
+/// {
+///   "printerJobId": String?,
+///   "connection": bool?,
+///   "online": bool?,
+///   "coverOpen": bool?,
+///   "paper": String?,
+///   "paperFeed": bool?,
+///   "panelSwitch": bool?,
+///   "waitOnline": int, // TODO: Not documented, maybe remove this?!
+///   "drawer": bool?,
+///   "errorStatus": String?
+///   "autoRecoverError": String?
+///   "buzzer": bool?,
+///   "adapter": bool?,
+///   "batteryLevel": int?
+///   "removalWaiting": String?
+///   "unrecoverError": String?
+/// }
+/// ```
 class Epos2Printer {
   final int id;
   final Epos2Series series;
   final Epos2Model model;
   final String target;
   final EventChannel _statusChannel;
-  final EventChannel _eventChannel;
 
   Epos2Printer._(this.id, this.series, this.model, this.target)
-      : _statusChannel = EventChannel("epson_epos_printer/printer/$id/status"),
-        _eventChannel = EventChannel("epson_epos_printer/printer/$id/event");
+      : _statusChannel = EventChannel("epson_epos_printer/printer/$id/status");
 
   static Future<Epos2Printer> create({
     required Epos2Series series,
@@ -45,11 +126,8 @@ class Epos2Printer {
 
   Future<void> dispose() async => destroyNativePrinter(id);
 
-  Stream<Epos2CallbackCode> statusStream() =>
-      _statusChannel.receiveBroadcastStream().map(decodeEpos2CallbackCode);
-
-  Stream<Epos2PrinterEvent> eventStream() =>
-      _eventChannel.receiveBroadcastStream().map(decodeEpos2PrinterEvent);
+  Stream<Epos2StatusEvent> statusStream() =>
+      _statusChannel.receiveBroadcastStream().map(decodeEpos2StatusEvent);
 
   // ==========================================================================
 
@@ -72,13 +150,17 @@ class Epos2Printer {
   // ==========================================================================
 
   /// * Method: void sendData({id: String, args: {Long timeout=10000}})
-  Future<void> sendData({
+  Future<Epos2PrinterStatusInfo> sendData({
     Duration timeout = const Duration(milliseconds: 10000),
   }) async =>
-      invokeChannel(
+      invokeChannel<Map<String, dynamic>>(
         id: id,
         method: "sendData",
         arguments: {"timeout": timeout.inMilliseconds},
+      ).then(
+        (data) => Epos2PrinterStatusInfo.fromJson(
+          data.checkNotNull(),
+        ),
       );
 
   /// * Method: void clearCommandBuffer({id: String})

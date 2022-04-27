@@ -147,11 +147,6 @@ class _$_Epos2PrinterCreationOptions extends _Epos2PrinterCreationOptions {
   final String target;
 
   @override
-  String toString() {
-    return 'Epos2PrinterCreationOptions(series: $series, model: $model, target: $target)';
-  }
-
-  @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
@@ -195,17 +190,17 @@ abstract class _Epos2PrinterCreationOptions
       get copyWith => throw _privateConstructorUsedError;
 }
 
-Epos2PrinterEvent _$Epos2PrinterEventFromJson(Map<String, dynamic> json) {
-  return _Epos2PrinterEvent.fromJson(json);
+Epos2PrinterStatusInfo _$Epos2PrinterStatusInfoFromJson(
+    Map<String, dynamic> json) {
+  return _Epos2PrinterStatusInfo.fromJson(json);
 }
 
 /// @nodoc
-class _$Epos2PrinterEventTearOff {
-  const _$Epos2PrinterEventTearOff();
+class _$Epos2PrinterStatusInfoTearOff {
+  const _$Epos2PrinterStatusInfoTearOff();
 
-  _Epos2PrinterEvent call(
-      {required Epos2StatusEvent event,
-      required String? printerJobId,
+  _Epos2PrinterStatusInfo call(
+      {required String? printerJobId,
       required bool connection,
       required bool? online,
       required bool? coverOpen,
@@ -221,8 +216,7 @@ class _$Epos2PrinterEventTearOff {
       required int? batteryLevel,
       required Epos2RemovalWaiting? removalWaiting,
       required Epos2UnrecoverError? unrecoverError}) {
-    return _Epos2PrinterEvent(
-      event: event,
+    return _Epos2PrinterStatusInfo(
       printerJobId: printerJobId,
       connection: connection,
       online: online,
@@ -242,17 +236,16 @@ class _$Epos2PrinterEventTearOff {
     );
   }
 
-  Epos2PrinterEvent fromJson(Map<String, Object?> json) {
-    return Epos2PrinterEvent.fromJson(json);
+  Epos2PrinterStatusInfo fromJson(Map<String, Object?> json) {
+    return Epos2PrinterStatusInfo.fromJson(json);
   }
 }
 
 /// @nodoc
-const $Epos2PrinterEvent = _$Epos2PrinterEventTearOff();
+const $Epos2PrinterStatusInfo = _$Epos2PrinterStatusInfoTearOff();
 
 /// @nodoc
-mixin _$Epos2PrinterEvent {
-  Epos2StatusEvent get event => throw _privateConstructorUsedError;
+mixin _$Epos2PrinterStatusInfo {
   String? get printerJobId => throw _privateConstructorUsedError;
   bool get connection => throw _privateConstructorUsedError;
   bool? get online => throw _privateConstructorUsedError;
@@ -273,18 +266,17 @@ mixin _$Epos2PrinterEvent {
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $Epos2PrinterEventCopyWith<Epos2PrinterEvent> get copyWith =>
+  $Epos2PrinterStatusInfoCopyWith<Epos2PrinterStatusInfo> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $Epos2PrinterEventCopyWith<$Res> {
-  factory $Epos2PrinterEventCopyWith(
-          Epos2PrinterEvent value, $Res Function(Epos2PrinterEvent) then) =
-      _$Epos2PrinterEventCopyWithImpl<$Res>;
+abstract class $Epos2PrinterStatusInfoCopyWith<$Res> {
+  factory $Epos2PrinterStatusInfoCopyWith(Epos2PrinterStatusInfo value,
+          $Res Function(Epos2PrinterStatusInfo) then) =
+      _$Epos2PrinterStatusInfoCopyWithImpl<$Res>;
   $Res call(
-      {Epos2StatusEvent event,
-      String? printerJobId,
+      {String? printerJobId,
       bool connection,
       bool? online,
       bool? coverOpen,
@@ -303,17 +295,16 @@ abstract class $Epos2PrinterEventCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$Epos2PrinterEventCopyWithImpl<$Res>
-    implements $Epos2PrinterEventCopyWith<$Res> {
-  _$Epos2PrinterEventCopyWithImpl(this._value, this._then);
+class _$Epos2PrinterStatusInfoCopyWithImpl<$Res>
+    implements $Epos2PrinterStatusInfoCopyWith<$Res> {
+  _$Epos2PrinterStatusInfoCopyWithImpl(this._value, this._then);
 
-  final Epos2PrinterEvent _value;
+  final Epos2PrinterStatusInfo _value;
   // ignore: unused_field
-  final $Res Function(Epos2PrinterEvent) _then;
+  final $Res Function(Epos2PrinterStatusInfo) _then;
 
   @override
   $Res call({
-    Object? event = freezed,
     Object? printerJobId = freezed,
     Object? connection = freezed,
     Object? online = freezed,
@@ -332,10 +323,6 @@ class _$Epos2PrinterEventCopyWithImpl<$Res>
     Object? unrecoverError = freezed,
   }) {
     return _then(_value.copyWith(
-      event: event == freezed
-          ? _value.event
-          : event // ignore: cast_nullable_to_non_nullable
-              as Epos2StatusEvent,
       printerJobId: printerJobId == freezed
           ? _value.printerJobId
           : printerJobId // ignore: cast_nullable_to_non_nullable
@@ -405,15 +392,14 @@ class _$Epos2PrinterEventCopyWithImpl<$Res>
 }
 
 /// @nodoc
-abstract class _$Epos2PrinterEventCopyWith<$Res>
-    implements $Epos2PrinterEventCopyWith<$Res> {
-  factory _$Epos2PrinterEventCopyWith(
-          _Epos2PrinterEvent value, $Res Function(_Epos2PrinterEvent) then) =
-      __$Epos2PrinterEventCopyWithImpl<$Res>;
+abstract class _$Epos2PrinterStatusInfoCopyWith<$Res>
+    implements $Epos2PrinterStatusInfoCopyWith<$Res> {
+  factory _$Epos2PrinterStatusInfoCopyWith(_Epos2PrinterStatusInfo value,
+          $Res Function(_Epos2PrinterStatusInfo) then) =
+      __$Epos2PrinterStatusInfoCopyWithImpl<$Res>;
   @override
   $Res call(
-      {Epos2StatusEvent event,
-      String? printerJobId,
+      {String? printerJobId,
       bool connection,
       bool? online,
       bool? coverOpen,
@@ -432,19 +418,18 @@ abstract class _$Epos2PrinterEventCopyWith<$Res>
 }
 
 /// @nodoc
-class __$Epos2PrinterEventCopyWithImpl<$Res>
-    extends _$Epos2PrinterEventCopyWithImpl<$Res>
-    implements _$Epos2PrinterEventCopyWith<$Res> {
-  __$Epos2PrinterEventCopyWithImpl(
-      _Epos2PrinterEvent _value, $Res Function(_Epos2PrinterEvent) _then)
-      : super(_value, (v) => _then(v as _Epos2PrinterEvent));
+class __$Epos2PrinterStatusInfoCopyWithImpl<$Res>
+    extends _$Epos2PrinterStatusInfoCopyWithImpl<$Res>
+    implements _$Epos2PrinterStatusInfoCopyWith<$Res> {
+  __$Epos2PrinterStatusInfoCopyWithImpl(_Epos2PrinterStatusInfo _value,
+      $Res Function(_Epos2PrinterStatusInfo) _then)
+      : super(_value, (v) => _then(v as _Epos2PrinterStatusInfo));
 
   @override
-  _Epos2PrinterEvent get _value => super._value as _Epos2PrinterEvent;
+  _Epos2PrinterStatusInfo get _value => super._value as _Epos2PrinterStatusInfo;
 
   @override
   $Res call({
-    Object? event = freezed,
     Object? printerJobId = freezed,
     Object? connection = freezed,
     Object? online = freezed,
@@ -462,11 +447,7 @@ class __$Epos2PrinterEventCopyWithImpl<$Res>
     Object? removalWaiting = freezed,
     Object? unrecoverError = freezed,
   }) {
-    return _then(_Epos2PrinterEvent(
-      event: event == freezed
-          ? _value.event
-          : event // ignore: cast_nullable_to_non_nullable
-              as Epos2StatusEvent,
+    return _then(_Epos2PrinterStatusInfo(
       printerJobId: printerJobId == freezed
           ? _value.printerJobId
           : printerJobId // ignore: cast_nullable_to_non_nullable
@@ -537,10 +518,9 @@ class __$Epos2PrinterEventCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$_Epos2PrinterEvent implements _Epos2PrinterEvent {
-  const _$_Epos2PrinterEvent(
-      {required this.event,
-      required this.printerJobId,
+class _$_Epos2PrinterStatusInfo implements _Epos2PrinterStatusInfo {
+  const _$_Epos2PrinterStatusInfo(
+      {required this.printerJobId,
       required this.connection,
       required this.online,
       required this.coverOpen,
@@ -557,11 +537,9 @@ class _$_Epos2PrinterEvent implements _Epos2PrinterEvent {
       required this.removalWaiting,
       required this.unrecoverError});
 
-  factory _$_Epos2PrinterEvent.fromJson(Map<String, dynamic> json) =>
-      _$$_Epos2PrinterEventFromJson(json);
+  factory _$_Epos2PrinterStatusInfo.fromJson(Map<String, dynamic> json) =>
+      _$$_Epos2PrinterStatusInfoFromJson(json);
 
-  @override
-  final Epos2StatusEvent event;
   @override
   final String? printerJobId;
   @override
@@ -597,15 +575,14 @@ class _$_Epos2PrinterEvent implements _Epos2PrinterEvent {
 
   @override
   String toString() {
-    return 'Epos2PrinterEvent(event: $event, printerJobId: $printerJobId, connection: $connection, online: $online, coverOpen: $coverOpen, paper: $paper, paperFeed: $paperFeed, panelSwitch: $panelSwitch, waitOnline: $waitOnline, drawer: $drawer, errorStatus: $errorStatus, autoRecoverError: $autoRecoverError, buzzer: $buzzer, adapter: $adapter, batteryLevel: $batteryLevel, removalWaiting: $removalWaiting, unrecoverError: $unrecoverError)';
+    return 'Epos2PrinterStatusInfo(printerJobId: $printerJobId, connection: $connection, online: $online, coverOpen: $coverOpen, paper: $paper, paperFeed: $paperFeed, panelSwitch: $panelSwitch, waitOnline: $waitOnline, drawer: $drawer, errorStatus: $errorStatus, autoRecoverError: $autoRecoverError, buzzer: $buzzer, adapter: $adapter, batteryLevel: $batteryLevel, removalWaiting: $removalWaiting, unrecoverError: $unrecoverError)';
   }
 
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _Epos2PrinterEvent &&
-            const DeepCollectionEquality().equals(other.event, event) &&
+            other is _Epos2PrinterStatusInfo &&
             const DeepCollectionEquality()
                 .equals(other.printerJobId, printerJobId) &&
             const DeepCollectionEquality()
@@ -636,7 +613,6 @@ class _$_Epos2PrinterEvent implements _Epos2PrinterEvent {
   @override
   int get hashCode => Object.hash(
       runtimeType,
-      const DeepCollectionEquality().hash(event),
       const DeepCollectionEquality().hash(printerJobId),
       const DeepCollectionEquality().hash(connection),
       const DeepCollectionEquality().hash(online),
@@ -656,40 +632,39 @@ class _$_Epos2PrinterEvent implements _Epos2PrinterEvent {
 
   @JsonKey(ignore: true)
   @override
-  _$Epos2PrinterEventCopyWith<_Epos2PrinterEvent> get copyWith =>
-      __$Epos2PrinterEventCopyWithImpl<_Epos2PrinterEvent>(this, _$identity);
+  _$Epos2PrinterStatusInfoCopyWith<_Epos2PrinterStatusInfo> get copyWith =>
+      __$Epos2PrinterStatusInfoCopyWithImpl<_Epos2PrinterStatusInfo>(
+          this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_Epos2PrinterEventToJson(this);
+    return _$$_Epos2PrinterStatusInfoToJson(this);
   }
 }
 
-abstract class _Epos2PrinterEvent implements Epos2PrinterEvent {
-  const factory _Epos2PrinterEvent(
-      {required Epos2StatusEvent event,
-      required String? printerJobId,
-      required bool connection,
-      required bool? online,
-      required bool? coverOpen,
-      required Epos2StatusPaper? paper,
-      required bool? paperFeed,
-      required bool? panelSwitch,
-      required int waitOnline,
-      required bool? drawer,
-      required Epos2PrinterError? errorStatus,
-      required Epos2AutoRecoverError? autoRecoverError,
-      required bool? buzzer,
-      required bool? adapter,
-      required int? batteryLevel,
-      required Epos2RemovalWaiting? removalWaiting,
-      required Epos2UnrecoverError? unrecoverError}) = _$_Epos2PrinterEvent;
+abstract class _Epos2PrinterStatusInfo implements Epos2PrinterStatusInfo {
+  const factory _Epos2PrinterStatusInfo(
+          {required String? printerJobId,
+          required bool connection,
+          required bool? online,
+          required bool? coverOpen,
+          required Epos2StatusPaper? paper,
+          required bool? paperFeed,
+          required bool? panelSwitch,
+          required int waitOnline,
+          required bool? drawer,
+          required Epos2PrinterError? errorStatus,
+          required Epos2AutoRecoverError? autoRecoverError,
+          required bool? buzzer,
+          required bool? adapter,
+          required int? batteryLevel,
+          required Epos2RemovalWaiting? removalWaiting,
+          required Epos2UnrecoverError? unrecoverError}) =
+      _$_Epos2PrinterStatusInfo;
 
-  factory _Epos2PrinterEvent.fromJson(Map<String, dynamic> json) =
-      _$_Epos2PrinterEvent.fromJson;
+  factory _Epos2PrinterStatusInfo.fromJson(Map<String, dynamic> json) =
+      _$_Epos2PrinterStatusInfo.fromJson;
 
-  @override
-  Epos2StatusEvent get event;
   @override
   String? get printerJobId;
   @override
@@ -724,6 +699,6 @@ abstract class _Epos2PrinterEvent implements Epos2PrinterEvent {
   Epos2UnrecoverError? get unrecoverError;
   @override
   @JsonKey(ignore: true)
-  _$Epos2PrinterEventCopyWith<_Epos2PrinterEvent> get copyWith =>
+  _$Epos2PrinterStatusInfoCopyWith<_Epos2PrinterStatusInfo> get copyWith =>
       throw _privateConstructorUsedError;
 }

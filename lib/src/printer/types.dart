@@ -50,9 +50,8 @@ class Epos2PrinterCreationOptions with _$Epos2PrinterCreationOptions {
 }
 
 @freezed
-class Epos2PrinterEvent with _$Epos2PrinterEvent {
-  const factory Epos2PrinterEvent({
-    required Epos2StatusEvent event,
+class Epos2PrinterStatusInfo with _$Epos2PrinterStatusInfo {
+  const factory Epos2PrinterStatusInfo({
     required String? printerJobId,
     required bool connection,
     required bool? online,
@@ -69,8 +68,8 @@ class Epos2PrinterEvent with _$Epos2PrinterEvent {
     required int? batteryLevel,
     required Epos2RemovalWaiting? removalWaiting,
     required Epos2UnrecoverError? unrecoverError,
-  }) = _Epos2PrinterEvent;
+  }) = _Epos2PrinterStatusInfo;
 
-  factory Epos2PrinterEvent.fromJson(Map<String, dynamic> json) =>
-      _$Epos2PrinterEventFromJson(json);
+  factory Epos2PrinterStatusInfo.fromJson(Map<String, dynamic> json) =>
+      _$Epos2PrinterStatusInfoFromJson(json);
 }

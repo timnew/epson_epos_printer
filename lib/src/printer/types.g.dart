@@ -6,9 +6,9 @@ part of 'types.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-_$_Epos2PrinterEvent _$$_Epos2PrinterEventFromJson(Map<String, dynamic> json) =>
-    _$_Epos2PrinterEvent(
-      event: $enumDecode(_$Epos2StatusEventEnumMap, json['event']),
+_$_Epos2PrinterStatusInfo _$$_Epos2PrinterStatusInfoFromJson(
+        Map<String, dynamic> json) =>
+    _$_Epos2PrinterStatusInfo(
       printerJobId: json['printerJobId'] as String?,
       connection: json['connection'] as bool,
       online: json['online'] as bool?,
@@ -31,10 +31,9 @@ _$_Epos2PrinterEvent _$$_Epos2PrinterEventFromJson(Map<String, dynamic> json) =>
           _$Epos2UnrecoverErrorEnumMap, json['unrecoverError']),
     );
 
-Map<String, dynamic> _$$_Epos2PrinterEventToJson(
-        _$_Epos2PrinterEvent instance) =>
+Map<String, dynamic> _$$_Epos2PrinterStatusInfoToJson(
+        _$_Epos2PrinterStatusInfo instance) =>
     <String, dynamic>{
-      'event': _$Epos2StatusEventEnumMap[instance.event],
       'printerJobId': instance.printerJobId,
       'connection': instance.connection,
       'online': instance.online,
@@ -53,32 +52,6 @@ Map<String, dynamic> _$$_Epos2PrinterEventToJson(
       'removalWaiting': _$Epos2RemovalWaitingEnumMap[instance.removalWaiting],
       'unrecoverError': _$Epos2UnrecoverErrorEnumMap[instance.unrecoverError],
     };
-
-const _$Epos2StatusEventEnumMap = {
-  Epos2StatusEvent.ONLINE: 'ONLINE',
-  Epos2StatusEvent.OFFLINE: 'OFFLINE',
-  Epos2StatusEvent.POWER_OFF: 'POWER_OFF',
-  Epos2StatusEvent.COVER_CLOSE: 'COVER_CLOSE',
-  Epos2StatusEvent.COVER_OPEN: 'COVER_OPEN',
-  Epos2StatusEvent.PAPER_OK: 'PAPER_OK',
-  Epos2StatusEvent.PAPER_NEAR_END: 'PAPER_NEAR_END',
-  Epos2StatusEvent.PAPER_EMPTY: 'PAPER_EMPTY',
-  Epos2StatusEvent.DRAWER_HIGH: 'DRAWER_HIGH',
-  Epos2StatusEvent.DRAWER_LOW: 'DRAWER_LOW',
-  Epos2StatusEvent.BATTERY_ENOUGH: 'BATTERY_ENOUGH',
-  Epos2StatusEvent.BATTERY_EMPTY: 'BATTERY_EMPTY',
-  Epos2StatusEvent.INSERTION_WAIT_SLIP: 'INSERTION_WAIT_SLIP',
-  Epos2StatusEvent.INSERTION_WAIT_VALIDATION: 'INSERTION_WAIT_VALIDATION',
-  Epos2StatusEvent.INSERTION_WAIT_MICR: 'INSERTION_WAIT_MICR',
-  Epos2StatusEvent.INSERTION_WAIT_NONE: 'INSERTION_WAIT_NONE',
-  Epos2StatusEvent.REMOVAL_WAIT_PAPER: 'REMOVAL_WAIT_PAPER',
-  Epos2StatusEvent.REMOVAL_WAIT_NONE: 'REMOVAL_WAIT_NONE',
-  Epos2StatusEvent.SLIP_PAPER_OK: 'SLIP_PAPER_OK',
-  Epos2StatusEvent.SLIP_PAPER_EMPTY: 'SLIP_PAPER_EMPTY',
-  Epos2StatusEvent.AUTO_RECOVER_ERROR: 'AUTO_RECOVER_ERROR',
-  Epos2StatusEvent.AUTO_RECOVER_OK: 'AUTO_RECOVER_OK',
-  Epos2StatusEvent.UNRECOVERABLE_ERROR: 'UNRECOVERABLE_ERROR',
-};
 
 const _$Epos2StatusPaperEnumMap = {
   Epos2StatusPaper.OK: 'OK',
