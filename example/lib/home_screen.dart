@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:epson_epos_printer/epson_epos_printer.dart';
+import 'package:device_info_plus/device_info_plus.dart';
 
 import 'add_printer_screen.dart';
 
@@ -101,64 +102,71 @@ class _HomeScreenState extends State<HomeScreen> {
     });
 
     try {
+      final deviceInfo = await DeviceInfoPlugin().iosInfo;
+
+      final time = DateTime.now().toIso8601String();
+
       await printer.connect();
 
-      // await _useLargeText(printer);
+      await _useLargeText(printer);
 
-      await printer.addTextLn(DateTime.now().toIso8601String());
-      await printer.addTextLn(
-          "From printer ${printer.series.name} ${printer.model.name}");
+      await printer.addTextLn(time);
+
+      await _useNormalText(printer);
+
+      await printer
+          .addTextLn("Job from ${deviceInfo.name} (${deviceInfo.model})");
+      await printer
+          .addTextLn("To printer ${printer.series.name} ${printer.model.name}");
       await printer.addTextLn("Target: ${printer.target}");
 
-      // await _useNormalText(printer);
+      await printer.addTextLn(printer.toString());
 
-      // await printer.addTextLn(printer.toString());
+      await printer.addTextLines([
+        "------------------------------------------",
+        "Name:  John Smith",
+        "Phone: (123) 456-7890",
+      ]);
 
-      // await printer.addTextLines([
-      //   "------------------------------------------",
-      //   "Name:  John Smith",
-      //   "Phone: (123) 456-7890",
-      // ]);
+      await _useLargeText(printer);
 
-      // await _useLargeText(printer);
+      await printer.addTextLn("Type:  dine-in");
+      await printer.addTextLn("Table: 18");
 
-      // await printer.addTextLn("Type:  dine-in");
-      // await printer.addTextLn("Table: 18");
+      await _useNormalText(printer);
 
-      // await _useNormalText(printer);
+      await printer.addTextLines([
+        "------------------------------------------",
+        "- Popular Bakery Set -",
+      ]);
 
-      // await printer.addTextLines([
-      //   "------------------------------------------",
-      //   "- Popular Bakery Set -",
-      // ]);
+      await _useLargeText(printer);
 
-      // await _useLargeText(printer);
+      await printer.addTextLines([
+        "2x Mahoushoujo's Cake",
+      ]);
 
-      // await printer.addTextLines([
-      //   "2x Mahoushoujo's Cake",
-      // ]);
+      await _useNormalText(printer);
+      await _beginBold(printer);
 
-      // await _useNormalText(printer);
-      // await _beginBold(printer);
+      await printer.addTextLines([
+        "+ Chocolate Base",
+        "+ Mango Jelly",
+        "+ Strawberry Icing",
+        "+ Magic Case",
+        "",
+      ]);
 
-      // await printer.addTextLines([
-      //   "+ Chocolate Base",
-      //   "+ Mango Jelly",
-      //   "+ Strawberry Icing",
-      //   "+ Magic Case",
-      //   "",
-      // ]);
+      await _endBold(printer);
 
-      // await _endBold(printer);
+      await printer.addTextLn("------------------------------------------");
+      await printer.addTextAlign(Epos2Alignment.CENTER);
 
-      // await printer.addTextLn("------------------------------------------");
-      // await printer.addTextAlign(Epos2Alignment.CENTER);
-
-      // await printer.addTextLines([
-      //   "Gütiokipänja Bakery",
-      //   "2021-03-21 11:35 AM",
-      //   "Powered by Kiki's Delivery Service",
-      // ]);
+      await printer.addTextLines([
+        "Gütiokipänja Bakery",
+        "2021-03-21 11:35 AM",
+        "Powered by Kiki's Delivery Service",
+      ]);
 
       await printer.addCut(Epos2Cut.CUT_FEED);
 
