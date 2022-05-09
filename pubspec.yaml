@@ -25,8 +25,7 @@ dev_dependencies:
 flutter:
   plugin:
     platforms:
-      android:
-        enabled: false # NOT YET SUPPORTED
+      # android: # NOT YET SUPPORTED
       #   package: me.timnew.epson_epos_printer
       #   pluginClass: EpsonEposPrinterPlugin
       ios:
